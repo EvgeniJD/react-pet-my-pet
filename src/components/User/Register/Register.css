@@ -1,0 +1,62 @@
+
+
+
+.reg-wraper {
+    min-height: 100%;
+}
+
+.reg-form-wrapper {
+    border: 2px solid orange;
+    border-radius: 12px;
+    padding: 40px 80px;
+    width: 40%;
+    margin: 50px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url("../../../assets/rocket.png");
+    background-repeat: no-repeat;
+    background-blend-mode: lighten;
+    background-position: top right;
+    background-size: 80%;
+}
+
+.reg-form-heading {
+    font-size: 40px;
+    color: orange;
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+.reg-image-wrapper {
+    width: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.reg-image-wrapper img {
+    width: 100%;
+}
+
+.confirm-btn {
+    background-color: orange;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.confirm-btn:hover {
+    background-color: rgb(255, 145, 0);
+    cursor: pointer;
+    box-shadow: 0px 0px 2px 1px gray;
+}
+
+.confirm-btn:click {
+    box-shadow: none;
+}
+
+.reg-btn {
+    margin-top: 10px;
+    
+}

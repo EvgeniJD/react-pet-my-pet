@@ -5,7 +5,6 @@ import Login from './components/User/Login';
 import Register from './components/User/Register';
 import Profile from './components/User/Profile';
 
-
 import './App.css';
 
 function App() {

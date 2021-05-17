@@ -1,0 +1,28 @@
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-wrapper label {
+    color: gray;
+}
+
+.input-form {
+    height: 30px;
+    border-radius: 4px;
+    border: 1px solid gray;
+    background: transparent;
+}
+
+.invalid {
+    border: 1px solid red;
+}
+
+.error {
+    position: absolute;
+    bottom: -15px;
+    color: red;
+    font-size: 12px;
+}
