@@ -1,6 +1,8 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
+import userService from '../../../services/user';
+
 import './Register.css';
 
 import TextField from '../TextField';
@@ -34,8 +36,11 @@ function Register() {
 
             validationSchema={validate}
 
-            onSubmit={values => {
-                console.log(values);
+            onSubmit={userData => {
+
+                userService.register(userData)
+                .then(console.log('Successsss'))
+                .catch(e => console.log('Error from onSubmit register user: ', e.message))
             }}
         >
             {formik => (
@@ -47,7 +52,7 @@ function Register() {
                             <TextField label="Email" name="email" type="email" />
                             <TextField label="Password" name="password" type="password" />
                             <TextField label="Confirm Password" name="confirmPassword" type="password" />
-                            <button className="confirm-btn reg-btn" >Register</button>
+                            <button type="submit" className="confirm-btn reg-btn" >Register</button>
                         </Form>
                     </article>
                     <article className="reg-image-wrapper">

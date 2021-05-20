@@ -10,6 +10,9 @@ function Header() {
                 </div>
                 <p className="header-user-name">Hi, Guest!</p>
             </Link>
+
+            <Link to="/" className="header-logo">AmicA</Link>
+
             <ul className="header-ul">
                 <li className="header-ul-add-post">
                     <Link to="/new-comment">+</Link>
