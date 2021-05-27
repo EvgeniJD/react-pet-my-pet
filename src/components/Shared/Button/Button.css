@@ -1,0 +1,23 @@
+.success, .negative, .common {
+    padding: 5px 15px;
+    cursor: pointer;
+    border: none;
+}
+
+.success {
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    background-color: pink;
+}
+
+.negative {
+    border-top-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    background-color: lightgray;
+}
+
+.common {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-color: lightblue;
+}

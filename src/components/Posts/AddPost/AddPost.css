@@ -2,18 +2,16 @@
     margin: 50px auto;
     width: 50%;
     border: 1px solid gray;
-    display: flex;
-    flex-direction: column;
     border-radius: 12px;
     position: relative;
 }
 
 .post-header {
     padding: 10px;
+    display: flex;
 }
 
 .post-header-image {
-    float: left;
     height: 150px;
     margin-right: 15px;
 }
@@ -23,23 +21,15 @@
     border-radius: 12px;
 }
 
-.post-footer {
-    display: flex;
-    justify-content: space-evenly;
-    margin-bottom: 30px;
-}
-
-.post-footer-like,
-.post-footer-dislike,
-.post-footer-see-comments {
+.add-post-btn, .cancel-btn {
     position: absolute;
     bottom: 0;
 }
 
-.post-footer-like {
+.add-post-btn {
     left: 0;
 }
 
-.post-footer-dislike {
+.cancel-btn {
     right: 0;
 }

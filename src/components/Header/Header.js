@@ -15,7 +15,7 @@ function Header() {
 
             <ul className="header-ul">
                 <li className="header-ul-add-post">
-                    <Link to="/new-comment">+</Link>
+                    <Link to="/add-post">+</Link>
                 </li>
                 <li><Link to="/user/login">Login</Link></li>
                 <li><Link to="/user/register">Register</Link></li>

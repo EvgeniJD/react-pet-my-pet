@@ -1,17 +1,21 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
+import userService from '../../../services/user';
+
 import '../Register/Register.css';
 
 import TextField from '../TextField';
 
 
-function Login() {
+function Login({
+    history
+}) {
 
     const validate = Yup.object({
-        username: Yup.string()
-            .required('Username is required!')
-            .max(20, 'Username should be less than 20 characters!'),
+        email: Yup.string()
+            .required('Email is required!')
+            .email('Invalid email!'),
         password: Yup.string()
             .required('Password is required!')
             .min(6, 'Password should be at least 6 characters long!'),
@@ -20,14 +24,20 @@ function Login() {
     return (
         <Formik
             initialValues={{
-                username: '',
+                email: '',
                 password: '',
             }}
 
             validationSchema={validate}
 
-            onSubmit={values => {
-                console.log(values);
+            onSubmit={values => { 
+                userService.login(values)
+                    .then(userData => {
+                        console.log("Userdata: ", userData);
+
+                        history.push('/');
+                    })
+                    .catch(e => console.log('Login error: ', e.message))
             }}
         >
             {formik => (
@@ -35,7 +45,7 @@ function Login() {
                     <article className="reg-form-wrapper">
                         <h1 className="reg-form-heading">Sign in</h1>
                         <Form>
-                            <TextField label="Username" name="username" type="text" />
+                            <TextField label="email" name="email" type="email" />
                             <TextField label="Password" name="password" type="password" />
                             <button className="confirm-btn reg-btn" >Sign in</button>
                         </Form>

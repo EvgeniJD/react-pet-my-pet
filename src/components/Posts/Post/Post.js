@@ -1,4 +1,5 @@
 import './Post.css';
+import Button from '../../Shared/Button';
 
 function Post({
     avatar,
@@ -15,15 +16,9 @@ function Post({
                 <p className="post-header-content">{content}</p>
             </header>
             <footer className="post-footer">
-                <button className="post-footer-like">
-                    Like {likes}
-                </button>
-                <button className="post-footer-see-comments">
-                    See comments
-                </button>
-                <button className="post-footer-dislike">
-                    {dislikes} Dislike
-                </button>
+                <Button view="success" newClassName="post-footer-like">{`Like ${likes}`}</Button>
+                <Button view="common" newClassName="post-footer-see-comments">See comments</Button>
+                <Button view="negative" newClassName="post-footer-dislike">{`${dislikes} Dislike`}</Button>
             </footer>
         </article>
     )

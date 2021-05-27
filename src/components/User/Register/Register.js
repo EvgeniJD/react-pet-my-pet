@@ -8,9 +8,23 @@ import './Register.css';
 import TextField from '../TextField';
 
 
-function Register() {
+function Register({
+    history
+}) {
 
-    const validate = Yup.object({
+    // Yup.addMethod(Yup.string, 'isEmailFree', function (params) {
+    //     const { message } = params;
+    //     return this.test('isEmailFree', message, function(value) {
+    //         const { path, createError } = this;
+    //         if(emailsInUse.includes(value)) {
+    //             return createError(path, message);
+    //         } else {
+    //             return true;
+    //         }
+    //     }) 
+    // })
+
+    const yupSchema = Yup.object({
         username: Yup.string()
             .required('Username is required!')
             .max(20, 'Username should be less than 20 characters!'),
@@ -21,9 +35,10 @@ function Register() {
             .required('Password is required!')
             .min(6, 'Password should be at least 6 characters long!'),
         confirmPassword: Yup.string()
-            .oneOf([ Yup.ref('password'), null ], 'Password must match!')
+            .oneOf([Yup.ref('password'), null], 'Password must match!')
             .required('Password confirmation is required!')
     })
+
 
     return (
         <Formik
@@ -34,13 +49,21 @@ function Register() {
                 confirmPassword: ''
             }}
 
-            validationSchema={validate}
+            validationSchema={yupSchema}
 
-            onSubmit={userData => {
+            onSubmit={(userData, methods) => {
 
                 userService.register(userData)
-                .then(console.log('Successsss'))
-                .catch(e => console.log('Error from onSubmit register user: ', e.message))
+                    .then(user => {
+                        if (user.hasOwnProperty('errorMessage')) {
+                            methods.setFieldError('email', user.errorMessage);
+                            return;
+                        }
+
+                        console.log('The new registered user is: ', user);
+                        history.push('/');
+                    })
+                    .catch(e => console.log('Error from onSubmit register user: ', e.message))
             }}
         >
             {formik => (
