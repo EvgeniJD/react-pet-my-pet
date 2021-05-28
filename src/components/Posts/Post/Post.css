@@ -23,6 +23,10 @@
     border-radius: 12px;
 }
 
+.post-header-username {
+    margin-top: 0;
+}
+
 .post-footer {
     display: flex;
     justify-content: space-evenly;

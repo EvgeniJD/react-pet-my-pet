@@ -1,0 +1,33 @@
+.my-post {
+    display: flex;
+    border: 1px solid gray;
+    border-radius: 8px;
+    margin: 15px;
+    height: 100px;
+}
+
+.my-post-img-wrapper {
+    margin: 10px;
+    flex-basis: 15%;
+}
+
+.my-post-img-wrapper img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.my-post-username-content-wrapper {
+    flex-basis: 80%;
+}
+
+.my-post-username {
+    margin:10px 0 0 0;
+}
+
+.my-post-content {
+    font-size: 12px;
+    padding: 10px;
+    margin: 0;
+    height: 65px;
+    overflow: hidden;
+}

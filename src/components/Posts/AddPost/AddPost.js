@@ -29,7 +29,7 @@ export default function AddPost({
 
             validationSchema={validate}
 
-            onSubmit={({content}) => {
+            onSubmit={({ content }) => {
                 const post = {
                     content,
                     likes: 0,
@@ -38,11 +38,11 @@ export default function AddPost({
                 }
 
                 postsService.create(post)
-                .then((createdPost) => {
-                    console.log(createdPost);
-                    // history.push("/")
-                })
-                .catch(e => console.log(e.message))
+                    .then((createdPost) => {
+                        console.log(createdPost);
+                        // history.push("/")
+                    })
+                    .catch(e => console.log(e.message))
             }}
         >
             {formik => (
@@ -52,6 +52,7 @@ export default function AddPost({
                             <div className="post-header-image">
                                 <img src="http://firstcutlab.eu/wp-content/uploads/2020/07/ivan.png" alt="" />
                             </div>
+                            <h3 className="post-header-username">Evgeni Dimitrov</h3>
                             <TextArea name="content" />
                         </header>
                         <footer className="post-footer">

@@ -1,0 +1,32 @@
+.profile-wrapper {
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-user,
+.profile-my-posts,
+.profile-latest-activity {
+    width: 30%;
+}
+
+.profile-image-wrapper {
+    margin: 0 80px;
+}
+
+.profile-image-wrapper img,
+.profile-username {
+    width: 100%;
+}
+
+.profile-image-wrapper img {
+    border-radius: 12px;
+}
+
+.my-posts-heading,
+.latest-heading,
+.profile-email,
+.profile-username,
+.my-activity-heading {
+    text-align: center;
+}

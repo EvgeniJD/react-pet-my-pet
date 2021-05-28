@@ -1,6 +1,6 @@
 .post-header textarea {
-    width: 100%;
+    width: 80%;
+    height: 110px;
     border-radius: 12px;
-    font-size: 24px;
-    color: gray;
+    font-size: 18px;
 }
