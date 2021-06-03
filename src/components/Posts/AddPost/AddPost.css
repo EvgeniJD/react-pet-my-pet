@@ -6,8 +6,9 @@
     position: relative;
 }
 
-.post-header {
+.add-post-header {
     padding: 10px;
+    display: flex;
 }
 
 .post-header-image {

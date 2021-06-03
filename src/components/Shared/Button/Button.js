@@ -5,7 +5,7 @@ function Button({
     type,
     view,
     newClassName,
-    children
+    children,
 }) {
     const classes = [view];
     if(newClassName) classes.push(newClassName);

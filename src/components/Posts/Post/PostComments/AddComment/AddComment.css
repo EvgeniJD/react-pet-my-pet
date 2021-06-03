@@ -1,0 +1,27 @@
+.add-comment-wrapper {
+    border: 1px solid gray;
+    border-radius: 12px;
+    margin: 20px;
+    background-color: lightblue;
+    position: relative;
+}
+
+.add-comment-header {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.add-comment-image-wrapper {
+    width: 50px;
+    margin: 5px;
+}
+
+.add-comment-image-wrapper img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.add-comment-footer {
+    display: flex;
+    justify-content: space-between;
+}

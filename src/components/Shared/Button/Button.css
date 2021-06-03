@@ -1,4 +1,4 @@
-.success, .negative, .common {
+.success, .negative, .round, .round-top, .round-bottom {
     padding: 5px 15px;
     cursor: pointer;
     border: none;
@@ -16,8 +16,28 @@
     background-color: lightgray;
 }
 
-.common {
+.blue {
+    background-color: lightblue;
+}
+
+.gray {
+    background-color: lightgray;
+}
+
+.pink {
+    background-color: pink;
+}
+
+.round {
+    border-radius: 12px;
+}
+
+.round-top {
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
-    background-color: lightblue;
+}
+
+.round-bottom {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }

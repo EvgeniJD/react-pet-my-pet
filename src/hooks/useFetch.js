@@ -7,7 +7,6 @@ function useFetch(fetchFunction, initialValue) {
     useEffect(() => {
         fetchFunction()
             .then(result => {
-                console.log("Result: ", result);
                 setState(result);
             })
             .catch(e => console.log("Error from useFetch: ", e.message));

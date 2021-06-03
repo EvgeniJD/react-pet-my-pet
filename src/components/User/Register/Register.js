@@ -75,7 +75,7 @@ function Register({
                             <TextField label="Email" name="email" type="email" />
                             <TextField label="Password" name="password" type="password" />
                             <TextField label="Confirm Password" name="confirmPassword" type="password" />
-                            <button type="submit" className="confirm-btn reg-btn" >Register</button>
+                            <button type="submit" className="confirm-btn reg-btn" >Sign up</button>
                         </Form>
                     </article>
                     <article className="reg-image-wrapper">

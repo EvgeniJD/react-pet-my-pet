@@ -1,0 +1,41 @@
+.comment {
+    border: 1px solid gray;
+    border-radius: 8px;
+    margin: 20px;
+    background-color: rgb(242 251 255);
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+}
+
+.comment-header-username {
+    margin: 0;
+}
+
+.comment-header-date {
+    margin: 0;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.comment-content-image-wrapper {
+    margin: 0 10px;
+}
+
+.comment-image-wrapper {
+    float: left;
+    width: 50px;
+    margin: 5px;
+}
+
+.comment-image-wrapper img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.comment-content {
+    font-size: 14px;
+}

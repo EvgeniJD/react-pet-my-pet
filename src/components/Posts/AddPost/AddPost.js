@@ -1,69 +1,63 @@
 import './AddPost.css';
-
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
+import { useState } from 'react';
 
 import Button from '../../Shared/Button';
-import TextArea from './TextArea';
+import TextArea from '../../Shared/TextArea';
 
 import postsService from '../../../services/posts';
 
-export default function AddPost({
-    history
-}) {
+function AddPost({ onCancelAddPost }) {
 
-    function onCancelButtonClick() {
-        history.push('/');
+    const [ content, setContent ] = useState('');
+    const [ showErrorMessage, setShowErrorMessage ] = useState(false);
+
+    function checkErrors(content) {
+        if(!content) {
+            setShowErrorMessage(true);
+            return true;
+        }
+        setShowErrorMessage(false);
+        return false;
     }
 
-    const validate = Yup.object({
-        content: Yup.string()
-            .required('Post content is required!')
-    })
+    function onSubmitHandler(e) {
+        e.preventDefault();
+        if(checkErrors(content)) return;
+        setContent('');
+        onCancelAddPost();
+        console.log("Content: ", content);
+    }
+
+    function onContentChangeHandler(e) {
+        checkErrors(e.target.value);
+        setContent(e.target.value);
+    }
 
     return (
-        <Formik
-            initialValues={{
-                content: '',
-            }}
-
-            validationSchema={validate}
-
-            onSubmit={({ content }) => {
-                const post = {
-                    content,
-                    likes: 0,
-                    dislikes: 0,
-                    comments: {}
-                }
-
-                postsService.create(post)
-                    .then((createdPost) => {
-                        console.log(createdPost);
-                        // history.push("/")
-                    })
-                    .catch(e => console.log(e.message))
-            }}
-        >
-            {formik => (
-                <Form>
-                    <article className="post-wraper">
-                        <header className="post-header">
-                            <div className="post-header-image">
-                                <img src="http://firstcutlab.eu/wp-content/uploads/2020/07/ivan.png" alt="" />
-                            </div>
-                            <h3 className="post-header-username">Evgeni Dimitrov</h3>
-                            <TextArea name="content" />
-                        </header>
-                        <footer className="post-footer">
-                            <Button type="submit" view="success" newClassName="add-post-btn" >Add Post</Button>
-                            <Button type="button" onClick={onCancelButtonClick} view="negative" newClassName="cancel-btn" >Cancel</Button>
-                        </footer>
-                    </article>
-                </Form>
-            )}
-        </Formik>
+        <form onSubmit={onSubmitHandler}>
+            <article className="post-wraper">
+                <header className="add-post-header">
+                    <div className="post-header-image">
+                        <img src="http://firstcutlab.eu/wp-content/uploads/2020/07/ivan.png" alt="" />
+                    </div>
+                    <TextArea
+                        name="postContent"
+                        onContentChangeHandlerFromParent={onContentChangeHandler}
+                        value={content}
+                        errorMessage="Post should not be empty!"
+                        showErrorMessage={showErrorMessage}
+                        checkErrors={checkErrors}
+                    />
+                </header>
+                <footer className="post-footer">
+                    <Button type="submit" view="success" newClassName="add-post-btn">Add Post</Button>
+                    <Button type="button" onClick={onCancelAddPost} view="negative" newClassName="cancel-btn" >Cancel</Button>
+                </footer>
+            </article>
+        </form>
     )
 }
+
+export default AddPost;
 
 
