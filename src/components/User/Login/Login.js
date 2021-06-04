@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+import AuthContext from '../../../contexts/AuthContext';
+
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
@@ -11,6 +14,8 @@ import TextField from '../TextField';
 function Login({
     history
 }) {
+
+    const [, setUserData] = useContext(AuthContext);
 
     const validate = Yup.object({
         email: Yup.string()
@@ -30,12 +35,14 @@ function Login({
 
             validationSchema={validate}
 
-            onSubmit={values => { 
+            onSubmit={values => {
                 userService.login(values)
-                    .then(userData => {
-                        console.log("Userdata: ", userData);
+                    .then(data => {
+                        console.log("Userdata: ", data);
 
                         history.push('/');
+                        setUserData(data);
+
                     })
                     .catch(e => console.log('Login error: ', e.message))
             }}

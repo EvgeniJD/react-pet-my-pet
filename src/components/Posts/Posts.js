@@ -1,4 +1,6 @@
 // import { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import UserContext from '../../contexts/AuthContext';
 import useFetch from '../../hooks/useFetch';
 import Post from './Post';
 import AddPost from './AddPost';
@@ -7,6 +9,8 @@ import postsService from '../../services/posts';
 function Posts({ isInAddPostMode, onCancelAddPost }) {
 
     // const [ posts, setPosts ] = useState([]);
+    const [ userData ] = useContext(UserContext);
+    console.log("User Data From / : ", userData);
 
     const [posts] = useFetch(postsService.getAll, []);
     // console.log('Posts is: ', posts);
