@@ -2,7 +2,7 @@ import constants from '../constants';
 const { baseURL } = constants;
 
 function register(user) {
-    return fetch(`${baseURL}/register`, {
+    return fetch(`${baseURL}/user/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -15,7 +15,7 @@ function register(user) {
 }
 
 function login(user) {
-    return fetch(`${baseURL}/login`, {
+    return fetch(`${baseURL}/user/login`, {
         method: 'POST',
         headers: {
             "Accept": 'application/json',
@@ -28,9 +28,61 @@ function login(user) {
         .catch(e => console.log("Error Message is: ", e.message))
 }
 
+function logout() {
+    return fetch(`${baseURL}/user/logout`, {
+        credentials: "include",
+    })
+        .then(res => res.json())
+        .catch(e => console.log("Error Message is: ", e.message))
+}
+
+function checkAuth() {
+    return fetch(`${baseURL}/user/check-auth`, {
+        credentials: "include",
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('You are not authorized!');
+            }
+            return res.json();
+        })
+        .catch(e => console.log("Error Message is: ", e.message))
+}
+
+function getUser(id) {
+    return fetch(`${baseURL}/user/${id}`, {
+        credentials: "include",
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Can not get user !');
+            }
+
+            return res.json();
+        })
+        .catch(e => console.log("Error Message is: ", e.message))
+}
+
+function updateUser(userID, userData) {
+    return fetch(`${baseURL}/user/${userID}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+        credentials: "include"
+    })
+        .then(res => res.json())
+        .catch(e => console.log(e.message))
+}
+
 const userService = {
     register,
-    login
+    login,
+    logout,
+    checkAuth,
+    getUser,
+    updateUser
 }
 
 export default userService;

@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 
-
-function useFetch(fetchFunction, initialValue) {
+function useFetch(fetchFunction, props, initialValue) {
     const [state, setState] = useState(initialValue);
 
     useEffect(() => {
-        fetchFunction()
+        fetchFunction(props)
             .then(result => {
                 setState(result);
             })
@@ -13,20 +12,10 @@ function useFetch(fetchFunction, initialValue) {
     }, [fetchFunction])
 
     return [
-        state
+        state,
+        setState
     ]
-    // useEffect(() => {
-    //     fetch(`${baseURL}/posts`, {
-    //         credentials: "include",
-    //     })
-    //         .then(res => {
-    //             if (!res.ok) {
-    //                 throw new Error('Can not get posts!');
-    //             }
-    //             return res.json()
-    //         })
-    //         .catch(e => console.log("Error from postsService: ", e.message));
-    // }, [])
+    
 }
 
 export default useFetch;

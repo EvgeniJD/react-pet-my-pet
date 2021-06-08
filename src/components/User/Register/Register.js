@@ -2,6 +2,8 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
 import userService from '../../../services/user';
+import AuthContext from '../../../contexts/AuthContext';
+import { useContext } from 'react';
 
 import './Register.css';
 
@@ -12,17 +14,7 @@ function Register({
     history
 }) {
 
-    // Yup.addMethod(Yup.string, 'isEmailFree', function (params) {
-    //     const { message } = params;
-    //     return this.test('isEmailFree', message, function(value) {
-    //         const { path, createError } = this;
-    //         if(emailsInUse.includes(value)) {
-    //             return createError(path, message);
-    //         } else {
-    //             return true;
-    //         }
-    //     }) 
-    // })
+    const [ , setUserData ] = useContext(AuthContext);
 
     const yupSchema = Yup.object({
         username: Yup.string()
@@ -59,9 +51,7 @@ function Register({
                             methods.setFieldError('email', user.errorMessage);
                             return;
                         }
-
-                        console.log('The new registered user is: ', user);
-                        history.push('/');
+                        setUserData(user);                        
                     })
                     .catch(e => console.log('Error from onSubmit register user: ', e.message))
             }}

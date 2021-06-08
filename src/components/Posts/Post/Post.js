@@ -7,7 +7,9 @@ function Post({
     avatar,
     content,
     likes,
-    dislikes
+    dislikes,
+    updatePost,
+    _id
 }) {
     const [isCommentsVisible, setIsCommentsVisible] = useState(false);
 
@@ -28,7 +30,7 @@ function Post({
                     <p className="post-header-content">{content}</p>
                 </header>
                 <footer className="post-footer">
-                    <Button view="success" newClassName="post-footer-like">{`Like ${likes}`}</Button>
+                    <Button view="success" newClassName="post-footer-like" onClick={() => updatePost(_id, {likes})}>{`Like ${likes}`}</Button>
                     <Button
                         view={isCommentsVisible ? "round-top gray" : "round-top blue"}
                         newClassName="post-footer-see-comments"
@@ -36,7 +38,7 @@ function Post({
                     >
                         {isCommentsVisible ? 'Hide comments' : 'See comments'}
                         </Button>
-                    <Button view="negative" newClassName="post-footer-dislike">{`${dislikes} Dislike`}</Button>
+                    <Button view="negative" newClassName="post-footer-dislike" onClick={() => updatePost(_id, {dislikes})}>{`${dislikes} Dislike`}</Button>
                 </footer>
             </article>
 

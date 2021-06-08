@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
 
 function IsAuth(InnerComponent) {
@@ -8,22 +8,21 @@ function IsAuth(InnerComponent) {
 
         const [userData] = useContext(AuthContext);
 
-        const { location } = props;
+        const location = useLocation();
         const currentPath = location.pathname;
 
         const isAuthNeeded = !(currentPath === '/user/login' || currentPath === '/user/register');
         const isUserAuthenticated = Boolean(userData);
-
-        console.log(isAuthNeeded);
-        console.log(isUserAuthenticated);
-
-        if ((isAuthNeeded && isUserAuthenticated) || (!isAuthNeeded && !isUserAuthenticated)) {
-            return <InnerComponent {...props} />
-        } else if (!isAuthNeeded && isUserAuthenticated) {
-            return <Redirect to="/" />
-        } else if (isAuthNeeded && !isUserAuthenticated) {
-            return <Redirect to="/user/login" />
-        }
+        
+        if (isAuthNeeded && !isUserAuthenticated) {
+            return <Redirect to="/user/login" />;
+        } else if (currentPath === '/user/login' && isUserAuthenticated) {
+            return <Redirect to="/" />;
+        } else if (currentPath === '/user/register' && isUserAuthenticated) {
+            return <Redirect to={`/user/profile/${userData._id}`} />;
+        } 
+        
+        return <InnerComponent {...props} />;
 
     }
 

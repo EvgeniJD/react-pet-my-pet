@@ -15,7 +15,7 @@ function Login({
     history
 }) {
 
-    const [, setUserData] = useContext(AuthContext);
+    const [ , setUserData ] = useContext(AuthContext);
 
     const validate = Yup.object({
         email: Yup.string()
@@ -38,11 +38,7 @@ function Login({
             onSubmit={values => {
                 userService.login(values)
                     .then(data => {
-                        console.log("Userdata: ", data);
-
-                        history.push('/');
                         setUserData(data);
-
                     })
                     .catch(e => console.log('Login error: ', e.message))
             }}
@@ -54,7 +50,7 @@ function Login({
                         <Form>
                             <TextField label="email" name="email" type="email" />
                             <TextField label="Password" name="password" type="password" />
-                            <button className="confirm-btn reg-btn" >Sign in</button>
+                            <button className="confirm-btn reg-btn" type="submit">Sign in</button>
                         </Form>
                     </article>
                     <article className="reg-image-wrapper">

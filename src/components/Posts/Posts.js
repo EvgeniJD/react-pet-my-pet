@@ -1,35 +1,39 @@
-// import { useState, useEffect } from 'react';
-import { useContext } from 'react';
-import UserContext from '../../contexts/AuthContext';
+import { useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import Post from './Post';
 import AddPost from './AddPost';
 import postsService from '../../services/posts';
+import IsAuth from '../../hoc/IsAuth';
 
 function Posts({ isInAddPostMode, onCancelAddPost }) {
 
-    // const [ posts, setPosts ] = useState([]);
-    const [ userData ] = useContext(UserContext);
-    console.log("User Data From / : ", userData);
+    // const [posts, setPosts] = useFetch(postsService.getAll, []);
+    const [posts, setPosts] = useState([]); 
+    useEffect(() => {
+        postsService.getAll().then((res) => setPosts(res));
+    }, [])
 
-    const [posts] = useFetch(postsService.getAll, []);
-    // console.log('Posts is: ', posts);
+    useEffect(() => {
+        return function () {
+            onCancelAddPost();
+        }
+    }, [])
 
-    // useEffect(() => {
-    //     postsService.getAll()
-    //         .then(posts => {
-    //             setPosts(posts)
-    //         })
-    //         .catch(e => console.log("Posts Error Handler: ", e.message));
-    // }, [])
+    function updatePost(postId, currentValue) {
+        postsService.updatePost(postId, currentValue)
+            .then((result) => {
+                const updatedPosts = posts.map(post => post._id === postId ? {...post, ...result} : post);
+                return setPosts(updatedPosts);
+            })
+    }
 
     return (
         <>
             {isInAddPostMode && <AddPost onCancelAddPost={onCancelAddPost} />}
-            {posts.map(post => <Post key={post._id}{...post} />)}
+            {posts?.map(post => <Post key={post._id}{...post} updatePost={updatePost} />)}
         </>
     )
 
 }
 
-export default Posts;
+export default IsAuth(Posts);

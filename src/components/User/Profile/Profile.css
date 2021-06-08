@@ -10,6 +10,27 @@
     width: 30%;
 }
 
+.profile-form-wrapper {
+    width: 80%;
+    margin: 0 auto;
+    border: 1px solid orange;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.profile-form-heading {
+    margin: 0 0 10px 0;
+}
+
+.profile-change-info-wrapper {
+    text-align: center;
+}
+
+.profile-form-btn-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .profile-image-wrapper {
     margin: 0 80px;
 }
