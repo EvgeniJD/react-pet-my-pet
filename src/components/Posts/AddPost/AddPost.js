@@ -1,31 +1,47 @@
 import './AddPost.css';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import AuthContext from '../../../contexts/AuthContext';
 
 import Button from '../../Shared/Button';
 import TextArea from '../../Shared/TextArea';
 
 import postsService from '../../../services/posts';
 
-function AddPost({ onCancelAddPost }) {
+function AddPost({ onCancelAddPost, setPosts }) {
 
-    const [ content, setContent ] = useState('');
-    const [ showErrorMessage, setShowErrorMessage ] = useState(false);
+    const [content, setContent] = useState('');
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
+
+    const [userData] = useContext(AuthContext);
 
     function checkErrors(content) {
-        if(!content) {
-            setShowErrorMessage(true);
-            return true;
+        if (!content) {
+            return setShowErrorMessage(true);
         }
         setShowErrorMessage(false);
-        return false;
     }
 
     function onSubmitHandler(e) {
         e.preventDefault();
-        if(checkErrors(content)) return;
-        setContent('');
-        onCancelAddPost();
-        console.log("Content: ", content);
+        if (showErrorMessage) return;
+
+        const post = {
+            content,
+            owner: userData._id,
+            likes: 0,
+            dislikes: 0,
+            comments: [],
+            date: Date.now()
+        }
+
+        postsService.create(post)
+            .then((result) => {
+                setContent('');
+                onCancelAddPost();
+                setPosts(oldPosts => oldPosts.concat(result));
+            })
+
+
     }
 
     function onContentChangeHandler(e) {
@@ -38,7 +54,7 @@ function AddPost({ onCancelAddPost }) {
             <article className="post-wraper">
                 <header className="add-post-header">
                     <div className="post-header-image">
-                        <img src="http://firstcutlab.eu/wp-content/uploads/2020/07/ivan.png" alt="" />
+                        <img src={userData.avatar} alt="" />
                     </div>
                     <TextArea
                         name="postContent"

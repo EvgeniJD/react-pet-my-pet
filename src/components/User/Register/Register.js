@@ -47,9 +47,8 @@ function Register({
 
                 userService.register(userData)
                     .then(user => {
-                        if (user.hasOwnProperty('errorMessage')) {
-                            methods.setFieldError('email', user.errorMessage);
-                            return;
+                        if (user.errorMessage) {
+                           return methods.setFieldError('email', user.errorMessage);
                         }
                         setUserData(user);                        
                     })

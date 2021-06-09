@@ -22,6 +22,7 @@ function App() {
     userService.checkAuth()
     .then(res => {
       if(!res) return setIsUserDataFetched(true);
+      console.log('CheckAuth: ', res);
       setUserData(res);
       setIsUserDataFetched(true);
     })

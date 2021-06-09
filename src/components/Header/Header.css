@@ -20,14 +20,16 @@
 }
 
 .header-user-image {
-    width: 50px;
     height: 50px;
-    object-fit: cover;
 }
 
 .header-user-image img {
     height: 100%;
     border-radius: 5px;
+}
+
+.header-user-username {
+    margin-left: 8px;
 }
 
 .header-logo {

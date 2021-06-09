@@ -8,6 +8,8 @@ function Header({ onAddPostBtnClickHandler, onLogoutBtnClickHandler }) {
 
     const [userData] = useContext(UserContext);
 
+    console.log('UserData from Header: ', userData);
+
     return (
         <header className="header">
             <div className="header-user-wrapper">
@@ -16,7 +18,7 @@ function Header({ onAddPostBtnClickHandler, onLogoutBtnClickHandler }) {
                     <div className="header-user-image">
                         <img src={userData.avatar} alt="" />
                     </div>
-                    <p className="header-user-name">{userData ? `Hi, ${userData.username} !` : "Hi, pal !"}</p>
+                    <p className="header-user-username">Hi, <b>{userData.username.split(' ')[0]}</b> !</p>
                 </Link>}
                 {userData && <Button view="round gray" newClassName="logout-btn" onClick={onLogoutBtnClickHandler}>Logout</Button>}
             </div>

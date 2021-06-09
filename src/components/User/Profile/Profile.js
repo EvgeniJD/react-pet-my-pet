@@ -17,6 +17,8 @@ function Profile() {
   const [user, setUser] = useFetch(userService.getUser, userData._id, {});
   const [isInChangeInfoMode, setIsInChangeInfoMode] = useState(false);
 
+  console.log(user);
+
   function toggleInfoChangeMode() {
     setIsInChangeInfoMode(oldState => !oldState);
   }
@@ -42,7 +44,13 @@ function Profile() {
         <h2 className="my-posts-heading">
           My Posts
                 </h2>
-        {arr.map(num => <MyPost key={num} />)}
+        {user.posts && user.posts.map(post => <MyPost
+          key={post._id}
+          _id={post._id}
+          content={post.content}
+          avatar={user.avatar}
+          username={user.username}
+        />)}
       </article>
       <article className="profile-user">
         <h2 className="profile-username">
@@ -84,9 +92,9 @@ function Profile() {
                 <article className="profile-form-wrapper">
                   <h1 className="profile-form-heading">Change personal info</h1>
                   <Form>
+                    <TextField label="Avatar" name="avatar" type="text" />
                     <TextField label="Username" name="username" type="text" />
                     <TextField label="Email" name="email" type="email" />
-                    <TextField label="Avatar" name="avatar" type="text" />
                     <div className="profile-form-btn-wrapper">
                       <Button view="round orange" type="submit">Change</Button>
                       <Button view="round gray" type="button" onClick={toggleInfoChangeMode}>Cancel</Button>
@@ -102,7 +110,7 @@ function Profile() {
         <h2 className="my-activity-heading">
           Latest Activity
                 </h2>
-        {arr.map(num => <MyActivity key={num} />)}
+        {user.lastActivity && user.lastActivity.map(activity => <MyActivity key={activity.objectId} {...activity} />)}
       </article>
     </section>
   )

@@ -10,7 +10,7 @@ function Posts({ isInAddPostMode, onCancelAddPost }) {
     // const [posts, setPosts] = useFetch(postsService.getAll, []);
     const [posts, setPosts] = useState([]); 
     useEffect(() => {
-        postsService.getAll().then((res) => setPosts(res));
+        postsService.getAll().then((res) => {console.log('Posts: ', res); setPosts(res)});
     }, [])
 
     useEffect(() => {
@@ -29,7 +29,7 @@ function Posts({ isInAddPostMode, onCancelAddPost }) {
 
     return (
         <>
-            {isInAddPostMode && <AddPost onCancelAddPost={onCancelAddPost} />}
+            {isInAddPostMode && <AddPost onCancelAddPost={onCancelAddPost} setPosts={setPosts}/>}
             {posts?.map(post => <Post key={post._id}{...post} updatePost={updatePost} />)}
         </>
     )

@@ -35,9 +35,12 @@ function Login({
 
             validationSchema={validate}
 
-            onSubmit={values => {
+            onSubmit={(values, methods) => {
                 userService.login(values)
                     .then(data => {
+                        if(data.errorMessage) {
+                           return methods.setFieldError('email', data.errorMessage);
+                        }
                         setUserData(data);
                     })
                     .catch(e => console.log('Login error: ', e.message))

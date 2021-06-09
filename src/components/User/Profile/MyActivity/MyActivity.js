@@ -1,13 +1,18 @@
 import './MyActivity.css';
+import {Link} from 'react-router-dom';
 
-function MyActivity() {
+function MyActivity({
+    objectId, message, date
+}) {
     return (
-        <article className="my-activity">
-            <p className="my-activity-date">16.08.2021</p>
+        <Link to={`/post/${objectId}`}>
+            <article className="my-activity">
+            <p className="my-activity-date">{new Date(date).toLocaleString()}</p>
             <p className="my-activity-message">
-                You liked Evgeni Dimitrov's post.
+                {message}
             </p>
         </article>
+        </Link>
     )
 }
 

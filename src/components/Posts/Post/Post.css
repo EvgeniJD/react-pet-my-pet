@@ -24,8 +24,18 @@
     border-radius: 12px;
 }
 
-.post-header-username {
+.post-header-username-date-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-header-username, .post-header-date {
     margin-top: 0;
+}
+
+.post-header-date {
+    font-size: 14px;
+    font-style: italic;
 }
 
 .post-footer {
