@@ -17,6 +17,8 @@ function App() {
 
   const [ userData, setUserData ] = useState(null);
   const [ isUserDataFetched, setIsUserDataFetched] = useState(false);
+
+  console.log("UserData: ", userData);
   
   useEffect(() => {
     userService.checkAuth()

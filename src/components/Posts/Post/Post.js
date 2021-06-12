@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import AuthContext from '../../../contexts/AuthContext';
 import './Post.css';
 import Button from '../../Shared/Button';
 import PostComments from './PostComments';
@@ -10,11 +11,18 @@ function Post({
     likes,
     dislikes,
     updatePost,
-    _id
+    updateUserLikes,
+    _id,
 }) {
+
+    const [userData] = useContext(AuthContext);
+
     const [isCommentsVisible, setIsCommentsVisible] = useState(false);
 
-    // avatar = avatar ? avatar : 'https://s.clipartkey.com/mpngs/s/112-1124283_profile-profile-clipart.png';
+
+    const isUserAlreadyLiked = () => {
+        return userData.likes.includes(_id);
+    }
 
     const toggleIsCommentsVisible = () => {
         setIsCommentsVisible((oldState) => !oldState);
@@ -34,7 +42,13 @@ function Post({
                     <p className="post-header-content">{content}</p>
                 </header>
                 <footer className="post-footer">
-                    <Button view="success" newClassName="post-footer-like" onClick={() => updatePost(_id, { likes })}>{`Like ${likes}`}</Button>
+                    <Button
+                        view="success"
+                        newClassName={isUserAlreadyLiked() ? 'disabled post-footer-like' : 'post-footer-like'}
+                        onClick={() => { updatePost(_id, { likes }); updateUserLikes(_id) }}
+                    >
+                        {`Like ${likes}`}
+                    </Button>
                     <Button
                         view={isCommentsVisible ? "round-top gray" : "round-top blue"}
                         newClassName="post-footer-see-comments"
@@ -42,7 +56,13 @@ function Post({
                     >
                         {isCommentsVisible ? 'Hide comments' : 'See comments'}
                     </Button>
-                    <Button view="negative" newClassName="post-footer-dislike" onClick={() => updatePost(_id, { dislikes })}>{`${dislikes} Dislike`}</Button>
+                    <Button
+                        view="negative"
+                        newClassName="post-footer-dislike"
+                        onClick={() => updatePost(_id, { dislikes })}
+                    >
+                        {`${dislikes} Dislike`}
+                    </Button>
                 </footer>
             </article>
 

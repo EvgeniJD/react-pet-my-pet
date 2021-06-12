@@ -63,7 +63,7 @@ function getUser(id) {
         .catch(e => console.log("Error Message is: ", e.message))
 }
 
-function updateUser(userID, userData) {
+function updatePersonalnfo(userID, userData) {
     return fetch(`${baseURL}/user/${userID}`, {
         method: 'PUT',
         headers: {
@@ -76,13 +76,34 @@ function updateUser(userID, userData) {
         .catch(e => console.log(e.message))
 }
 
+function updateUserLikes(userId, objectId) {
+    return fetch(`${baseURL}/user/${userId}/likes`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(objectId),
+        credentials: "include"
+    })
+        .then(res => { 
+           if(!res.ok) {
+               throw new Error('There is a problem with update user likes !')
+           } 
+           
+           return res.json()
+        })
+        .catch(e => console.log(e.message))
+}
+
+
 const userService = {
     register,
     login,
     logout,
     checkAuth,
     getUser,
-    updateUser
+    updatePersonalnfo,
+    updateUserLikes
 }
 
 export default userService;

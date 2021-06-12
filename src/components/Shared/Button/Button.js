@@ -10,8 +10,11 @@ function Button({
     const classes = [view];
     if(newClassName) classes.push(newClassName);
 
+    let disabled = false;
+    if(newClassName && newClassName.includes('disabled')) disabled = true;
+
     return (
-        <button type={type} className={classes.join(' ')} onClick={onClick}>
+        <button type={type} disabled={disabled} className={classes.join(' ')} onClick={onClick}>
             { children }
         </button>
     )

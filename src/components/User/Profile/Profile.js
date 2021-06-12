@@ -75,7 +75,7 @@ function Profile() {
               validationSchema={yupSchema}
 
               onSubmit={(formData, methods) => {
-                userService.updateUser(user._id, formData)
+                userService.updatePersonalnfo(user._id, formData)
                   .then(updatedUser => {
                     console.log('updatedUser: ', updatedUser);
                     if (updatedUser.hasOwnProperty('errorMessage')) {

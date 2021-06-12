@@ -36,9 +36,22 @@ function AddPost({ onCancelAddPost, setPosts }) {
 
         postsService.create(post)
             .then((result) => {
+                const populatedResult = {
+                    ...result,
+                    owner: {
+                        _id: result.owner,
+                        username: userData.username,
+                        avatar: userData.avatar
+                    }
+                }
                 setContent('');
                 onCancelAddPost();
-                setPosts(oldPosts => oldPosts.concat(result));
+               
+                setPosts(posts => {
+                    const newPosts = posts.slice();
+                    newPosts.unshift(populatedResult);
+                    return newPosts;
+                });
             })
 
 

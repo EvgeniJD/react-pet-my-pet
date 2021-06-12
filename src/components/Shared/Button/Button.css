@@ -16,6 +16,11 @@
     background-color: lightgray;
 }
 
+.disabled {
+    color: darkgray;
+    cursor: inherit;
+}
+
 .blue {
     background-color: lightblue;
 }
