@@ -30,8 +30,7 @@ function AddPost({ onCancelAddPost, setPosts }) {
             owner: userData._id,
             likes: 0,
             dislikes: 0,
-            comments: [],
-            date: Date.now()
+            comments: []
         }
 
         postsService.create(post)
@@ -67,7 +66,7 @@ function AddPost({ onCancelAddPost, setPosts }) {
             <article className="post-wraper">
                 <header className="add-post-header">
                     <div className="post-header-image">
-                        <img src={userData.avatar} alt="" />
+                        <img src={userData.avatar } alt="" />
                     </div>
                     <TextArea
                         name="postContent"

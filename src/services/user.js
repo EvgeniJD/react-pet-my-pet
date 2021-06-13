@@ -63,31 +63,39 @@ function getUser(id) {
         .catch(e => console.log("Error Message is: ", e.message))
 }
 
-function updatePersonalnfo(userID, userData) {
-    return fetch(`${baseURL}/user/${userID}`, {
+function updateUser(userId, data, endPoint) {
+    if(endPoint) {
+       return updateUserLikesOrDislikes(userId, data, endPoint);
+    } else {
+        return updatePersonalnfo(userId, data);
+    }
+}
+
+function updatePersonalnfo(userId, data) {
+    return fetch(`${baseURL}/user/${userId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(data),
         credentials: "include"
     })
         .then(res => res.json())
         .catch(e => console.log(e.message))
 }
 
-function updateUserLikes(userId, objectId) {
-    return fetch(`${baseURL}/user/${userId}/likes`, {
+function updateUserLikesOrDislikes(userId, data, endPoint) {
+    return fetch(`${baseURL}/user/${userId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(objectId),
+        body: JSON.stringify({endPoint ,...data}),
         credentials: "include"
     })
         .then(res => { 
            if(!res.ok) {
-               throw new Error('There is a problem with update user likes !')
+               throw new Error('There is a problem with update user likes or dislikes!')
            } 
            
            return res.json()
@@ -102,8 +110,7 @@ const userService = {
     logout,
     checkAuth,
     getUser,
-    updatePersonalnfo,
-    updateUserLikes
+    updateUser
 }
 
 export default userService;

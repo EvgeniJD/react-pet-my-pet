@@ -11,7 +11,7 @@ function Post({
     likes,
     dislikes,
     updatePost,
-    updateUserLikes,
+    updateUser,
     _id,
 }) {
 
@@ -24,6 +24,10 @@ function Post({
         return userData.likes.includes(_id);
     }
 
+    const isUserAlreadyDisliked = () => {
+        return userData.dislikes.includes(_id);
+    }
+
     const toggleIsCommentsVisible = () => {
         setIsCommentsVisible((oldState) => !oldState);
     };
@@ -33,7 +37,7 @@ function Post({
             <article className="post-wraper">
                 <header className="post-header">
                     <div className="post-header-image">
-                        <img src={owner.avatar} alt="https://s.clipartkey.com/mpngs/s/112-1124283_profile-profile-clipart.png" />
+                        <img src={ owner.avatar } alt="profile-pic" />
                     </div>
                     <div className="post-header-username-date-wrapper">
                         <h3 className="post-header-username">{owner.username}</h3>
@@ -42,10 +46,10 @@ function Post({
                     <p className="post-header-content">{content}</p>
                 </header>
                 <footer className="post-footer">
-                    <Button
+                    <Button 
                         view="success"
                         newClassName={isUserAlreadyLiked() ? 'disabled post-footer-like' : 'post-footer-like'}
-                        onClick={() => { updatePost(_id, { likes }); updateUserLikes(_id) }}
+                        onClick={() => { updatePost(_id, { likes }); updateUser(_id, {username: owner.username, id: owner._id}, 'likes') }}
                     >
                         {`Like ${likes}`}
                     </Button>
@@ -58,8 +62,8 @@ function Post({
                     </Button>
                     <Button
                         view="negative"
-                        newClassName="post-footer-dislike"
-                        onClick={() => updatePost(_id, { dislikes })}
+                        newClassName={isUserAlreadyDisliked() ? 'disabled post-footer-dislike' : 'post-footer-dislike'}
+                        onClick={() => {updatePost(_id, { dislikes }); updateUser(_id, {username: owner.username, id: owner._id}, 'dislikes') }}
                     >
                         {`${dislikes} Dislike`}
                     </Button>

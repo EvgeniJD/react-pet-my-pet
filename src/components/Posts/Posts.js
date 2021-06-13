@@ -31,13 +31,12 @@ function Posts({ isInAddPostMode, onCancelAddPost }) {
             })
     }
 
-    function updateUserLikes(objectId) {
-        userService.updateUserLikes(userData._id, { objectId })
-            .then((result) => {
-                if (result.objectId) {
+    function updateUser(objectId, ownerData, endPoint) {
+        userService.updateUser(userData._id, { objectId, ownerData }, endPoint)
+            .then((updatedArray) => {
+                if (updatedArray) {
                     setUserData(oldState => {
-                        const updatedUserLikes = oldState.likes.concat(result.objectId);
-                        return { ...oldState, likes: updatedUserLikes };
+                        return { ...oldState, [endPoint]: updatedArray };
                     })
                 }
             })
@@ -50,7 +49,7 @@ function Posts({ isInAddPostMode, onCancelAddPost }) {
                 key={post._id}
                 {...post}
                 updatePost={updatePost}
-                updateUserLikes={updateUserLikes}
+                updateUser={updateUser}
             />)}
         </>
     )

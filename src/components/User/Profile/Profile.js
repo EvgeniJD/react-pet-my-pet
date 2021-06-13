@@ -57,7 +57,7 @@ function Profile() {
           {user.username}
         </h2>
         <div className="profile-image-wrapper">
-          <img src={user.avatar || "https://s.clipartkey.com/mpngs/s/112-1124283_profile-profile-clipart.png"} alt="" />
+          <img src={ user.avatar } alt="" />
         </div>
         <p className="profile-email">
           {user.email}
@@ -75,7 +75,7 @@ function Profile() {
               validationSchema={yupSchema}
 
               onSubmit={(formData, methods) => {
-                userService.updatePersonalnfo(user._id, formData)
+                userService.updateUser(user._id, formData)
                   .then(updatedUser => {
                     console.log('updatedUser: ', updatedUser);
                     if (updatedUser.hasOwnProperty('errorMessage')) {
@@ -110,7 +110,7 @@ function Profile() {
         <h2 className="my-activity-heading">
           Latest Activity
                 </h2>
-        {user.lastActivity && user.lastActivity.map(activity => <MyActivity key={activity.objectId} {...activity} />)}
+        {user.lastActivity && user.lastActivity.map((activity, i) => <MyActivity key={activity._id} {...activity} />)}
       </article>
     </section>
   )

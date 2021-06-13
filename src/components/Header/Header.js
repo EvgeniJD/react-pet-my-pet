@@ -8,15 +8,13 @@ function Header({ onAddPostBtnClickHandler, onLogoutBtnClickHandler }) {
 
     const [userData] = useContext(UserContext);
 
-    console.log('UserData from Header: ', userData);
-
     return (
         <header className="header">
             <div className="header-user-wrapper">
                 {!userData && <h3>Hi, pal !</h3>}
                 {userData && <Link to={`/user/profile/${ userData._id }`} className="header-user">
                     <div className="header-user-image">
-                        <img src={userData.avatar} alt="" />
+                        <img src={ userData.avatar } alt="" />
                     </div>
                     <p className="header-user-username">Hi, <b>{userData.username.split(' ')[0]}</b> !</p>
                 </Link>}
