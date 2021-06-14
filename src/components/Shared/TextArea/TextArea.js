@@ -7,7 +7,7 @@ const TextArea = ({
     value,
     errorMessage,
     showErrorMessage,
-    checkErrors
+    isEmpty
 }) => {
 
     const classes = [
@@ -22,7 +22,7 @@ const TextArea = ({
     }
 
     function onBlurTextAreaHandler(e) {
-        if(checkErrors(e.target.value)) showErrorMessage = true;
+        if(isEmpty(e.target.value)) showErrorMessage = true;
     }
 
     return (

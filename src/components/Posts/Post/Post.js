@@ -70,7 +70,7 @@ function Post({
                 </footer>
             </article>
 
-            {isCommentsVisible && <PostComments toggleIsCommentsVisible={toggleIsCommentsVisible} />}
+            {isCommentsVisible && <PostComments toggleIsCommentsVisible={toggleIsCommentsVisible} postId={_id} />}
         </>
     )
 }

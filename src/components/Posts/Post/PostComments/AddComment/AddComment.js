@@ -1,16 +1,24 @@
 import './AddComment.css';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import AuthContext from '../../../../../contexts/AuthContext';
+import commentsService from '../../../../../services/comments';
 
 import Button from '../../../../Shared/Button';
 import TextArea from '../../../../Shared/TextArea';
 
-function AddComment({ changeAddCommentMode }) {
+function AddComment({
+    changeAddCommentMode,
+    postId,
+    setComments
+}) {
 
-    const [ content, setContent ] = useState('');
-    const [ showErrorMessage, setShowErrorMessage ] = useState(false);
+    const [userData] = useContext(AuthContext);
 
-    function checkErrors(content) {
-        if(!content) {
+    const [content, setContent] = useState('');
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
+
+    function isEmpty(content) {
+        if (!content) {
             setShowErrorMessage(true);
             return true;
         }
@@ -18,24 +26,40 @@ function AddComment({ changeAddCommentMode }) {
         return false;
     }
 
-    function onSubmitHandler(e) {
-        e.preventDefault();
-        if(checkErrors(content)) return;
-        setContent('');
-        changeAddCommentMode();
-        console.log("Content: ", content);
+    function onContentChangeHandler(e) {
+        isEmpty(e.target.value);
+        setContent(e.target.value);
     }
 
-    function onContentChangeHandler(e) {
-        checkErrors(e.target.value);
-        setContent(e.target.value);
+    function onSubmitHandler(e) {
+        e.preventDefault();
+        if (isEmpty(content)) return;
+
+        const comment = {
+            content,
+            likes: 0,
+            dislikes: 0,
+            owner: userData._id,
+            parentPost: postId
+        }
+
+        commentsService.createComment(comment)
+            .then((createdComment) => {
+                console.log('Comment Is Created', createdComment);
+                setComments((state) => {
+                    state.unshift(createdComment);
+                    return state;
+                })
+                setContent('');
+                changeAddCommentMode();
+            })
     }
 
     return (
         <form onSubmit={onSubmitHandler} className="add-comment-wrapper">
             <header className="add-comment-header">
                 <article className="add-comment-image-wrapper">
-                    <img src="https://consento.bg/wp-content/uploads/2018/03/Evgeni-Mekov1.jpg" alt="" />
+                    <img src={userData.avatar} alt="" />
                 </article>
                 <TextArea
                     name="commentContent"
@@ -43,7 +67,7 @@ function AddComment({ changeAddCommentMode }) {
                     value={content}
                     errorMessage="Comment should not be empty!"
                     showErrorMessage={showErrorMessage}
-                    checkErrors={checkErrors}
+                    isEmpty={isEmpty}
                 />
             </header>
             <footer className="add-comment-footer">

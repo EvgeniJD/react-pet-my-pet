@@ -14,7 +14,7 @@ function Posts({ isInAddPostMode, onCancelAddPost }) {
     // const [posts, setPosts] = useFetch(postsService.getAll, []);
     const [posts, setPosts] = useState([]);
     useEffect(() => {
-        postsService.getAll().then((res) => { console.log('Posts: ', res); setPosts(res) });
+        postsService.getAll().then((res) => { setPosts(res) });
     }, [])
 
     useEffect(() => {

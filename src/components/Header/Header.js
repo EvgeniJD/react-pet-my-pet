@@ -21,7 +21,8 @@ function Header({ onAddPostBtnClickHandler, onLogoutBtnClickHandler }) {
                 {userData && <Button view="round gray" newClassName="logout-btn" onClick={onLogoutBtnClickHandler}>Logout</Button>}
             </div>
 
-            <Link to="/" className="header-logo">AmicA</Link>
+            {userData && <Link to="/" className="header-logo">AmicA</Link>}
+            {!userData && <div className="header-logo">AmicA</div>}
 
             <ul className="header-ul">
                 {userData && <li className="header-ul-add-post">

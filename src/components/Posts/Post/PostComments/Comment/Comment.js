@@ -1,20 +1,34 @@
+import { func } from 'assert-plus';
+import { span } from 'prelude-ls';
+import { useContext } from 'react';
+import AuthContext from '../../../../../contexts/AuthContext';
+
 import './Comment.css';
 
-function Comment(params) {
+function Comment({
+    owner,
+    content,
+    date
+}) {
+
+    const [userData] = useContext(AuthContext);
+
+    function isOwner() {
+        return userData._id === owner._id;
+    }
+
     return (
         <article className="comment">
             <article className="comment-header">
-                <h4 className="comment-header-username">Evgeni Dimitrov</h4>
-                <p className="comment-header-date">01.06.2021 16:34</p>
+                <h4 className="comment-header-username">{owner.username}</h4>
+                <p className="comment-header-date">{new Date(date).toLocaleString()}</p>
+                {isOwner() && <span title="Delete Comment"><i className="comment-icon far fa-trash-alt"></i></span>}
+                {isOwner() && <span title="Edit Comment"><i className="comment-icon fas fa-pencil-alt"></i></span>}
             </article>
             <article className="comment-content-image-wrapper">
-                <article className="comment-image-wrapper">
-                    <img src="https://consento.bg/wp-content/uploads/2018/03/Evgeni-Mekov1.jpg" alt="" />
-                </article>
+                <img src={owner.avatar} alt="" />
                 <p className="comment-content">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus pariatur nobis rem exercitationem at perspiciatis quidem voluptatum aliquam nam ex!
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus pariatur nobis rem exercitationem at perspiciatis quidem voluptatum aliquam nam ex!                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus pariatur nobis rem exercitationem at perspiciatis quidem voluptatum aliquam nam ex!
-
+                    {content}
                 </p>
             </article>
         </article>
