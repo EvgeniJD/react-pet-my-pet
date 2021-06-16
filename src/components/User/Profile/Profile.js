@@ -17,8 +17,6 @@ function Profile() {
   const [user, setUser] = useFetch(userService.getUser, userData._id, {});
   const [isInChangeInfoMode, setIsInChangeInfoMode] = useState(false);
 
-  console.log(user);
-
   function toggleInfoChangeMode() {
     setIsInChangeInfoMode(oldState => !oldState);
   }
@@ -43,7 +41,8 @@ function Profile() {
       <article className="profile-my-posts">
         <h2 className="my-posts-heading">
           My Posts
-                </h2>
+        </h2>
+
         {user.posts && user.posts.map(post => <MyPost
           key={post._id}
           _id={post._id}
@@ -51,13 +50,14 @@ function Profile() {
           avatar={user.avatar}
           username={user.username}
         />)}
+
       </article>
       <article className="profile-user">
         <h2 className="profile-username">
           {user.username}
         </h2>
         <div className="profile-image-wrapper">
-          <img src={ user.avatar } alt="" />
+          <img src={user.avatar} alt="" />
         </div>
         <p className="profile-email">
           {user.email}
@@ -75,7 +75,7 @@ function Profile() {
               validationSchema={yupSchema}
 
               onSubmit={(formData, methods) => {
-                userService.updateUser(user._id, formData)
+                userService.editUser(user._id, formData)
                   .then(updatedUser => {
                     console.log('updatedUser: ', updatedUser);
                     if (updatedUser.hasOwnProperty('errorMessage')) {
@@ -109,7 +109,7 @@ function Profile() {
       <article className="profile-latest-activity">
         <h2 className="my-activity-heading">
           Latest Activity
-                </h2>
+        </h2>
         {user.lastActivity && user.lastActivity.map((activity, i) => <MyActivity key={activity._id} {...activity} />)}
       </article>
     </section>

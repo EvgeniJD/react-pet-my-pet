@@ -26,19 +26,17 @@ function Posts({ isInAddPostMode, onCancelAddPost }) {
     function editPost(postId, currentValue) {
         postsService.editPost(postId, currentValue)
             .then((result) => {
-                const updatedPosts = posts.map(post => post._id === postId ? { ...post, ...result } : post);
-                return setPosts(updatedPosts);
-            })
-    }
-
-    function updateUser(objectId, ownerData, endPoint) {
-        userService.updateUser(userData._id, { objectId, ownerData }, endPoint)
-            .then((updatedArray) => {
-                if (updatedArray) {
-                    setUserData(oldState => {
-                        return { ...oldState, [endPoint]: updatedArray };
-                    })
+                const updatedKey = Object.keys(result)[0];
+                if (updatedKey === 'likes' || updatedKey === 'dislikes') {
+                    setUserData((data) => {
+                        data[updatedKey].push(postId);
+                        return data;
+                    });
                 }
+                setPosts((posts) => {
+                    const updatedPosts = posts.map(post => post._id === postId ? { ...post, ...result } : post);
+                    return updatedPosts;
+                });
             })
     }
 
@@ -54,7 +52,6 @@ function Posts({ isInAddPostMode, onCancelAddPost }) {
                 key={post._id}
                 {...post}
                 editPost={editPost}
-                updateUser={updateUser}
                 setPosts={setPosts}
             />)}
         </>

@@ -63,15 +63,7 @@ function getUser(id) {
         .catch(e => console.log("Error Message is: ", e.message))
 }
 
-function updateUser(userId, data, endPoint) {
-    if(endPoint) {
-       return updateUserLikesOrDislikes(userId, data, endPoint);
-    } else {
-        return updatePersonalnfo(userId, data);
-    }
-}
-
-function updatePersonalnfo(userId, data) {
+function editUser(userId, data) {
     return fetch(`${baseURL}/user/${userId}`, {
         method: 'PUT',
         headers: {
@@ -80,25 +72,12 @@ function updatePersonalnfo(userId, data) {
         body: JSON.stringify(data),
         credentials: "include"
     })
-        .then(res => res.json())
-        .catch(e => console.log(e.message))
-}
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Can not edit user !');
+            }
 
-function updateUserLikesOrDislikes(userId, data, endPoint) {
-    return fetch(`${baseURL}/user/${userId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({endPoint ,...data}),
-        credentials: "include"
-    })
-        .then(res => { 
-           if(!res.ok) {
-               throw new Error('There is a problem with update user likes or dislikes!')
-           } 
-           
-           return res.json()
+            return res.json();
         })
         .catch(e => console.log(e.message))
 }
@@ -110,7 +89,7 @@ const userService = {
     logout,
     checkAuth,
     getUser,
-    updateUser
+    editUser
 }
 
 export default userService;

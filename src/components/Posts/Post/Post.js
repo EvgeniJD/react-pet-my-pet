@@ -13,7 +13,6 @@ function Post({
     likes,
     dislikes,
     editPost,
-    updateUser,
     _id,
     setPosts
 }) {
@@ -79,7 +78,7 @@ function Post({
                     <Button
                         view="success"
                         newClassName={isUserAlreadyLiked() ? 'disabled post-footer-like' : 'post-footer-like'}
-                        onClick={() => { editPost(_id, { likes }); updateUser(_id, { username: owner.username, id: owner._id }, 'likes') }}
+                        onClick={() => editPost(_id, { likes })}
                     >
                         {`Like ${likes}`}
                     </Button>
@@ -93,7 +92,7 @@ function Post({
                     <Button
                         view="negative"
                         newClassName={isUserAlreadyDisliked() ? 'disabled post-footer-dislike' : 'post-footer-dislike'}
-                        onClick={() => { editPost(_id, { dislikes }); updateUser(_id, { username: owner.username, id: owner._id }, 'dislikes') }}
+                        onClick={() => editPost(_id, { dislikes })}
                     >
                         {`${dislikes} Dislike`}
                     </Button>
