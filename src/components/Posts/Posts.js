@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import AuthContext from '../../contexts/AuthContext';
 import useFetch from '../../hooks/useFetch';
 import Post from './Post';
-import AddPost from './AddPost';
+import AddEditPost from './AddEditPost';
 import postsService from '../../services/posts';
 import IsAuth from '../../hoc/IsAuth';
 import userService from '../../services/user';
@@ -11,10 +11,10 @@ function Posts({ isInAddPostMode, onCancelAddPost }) {
 
     const [userData, setUserData] = useContext(AuthContext);
 
-    // const [posts, setPosts] = useFetch(postsService.getAll, []);
+    // const [posts, setPosts] = useFetch(postsService.getAllPosts, []);
     const [posts, setPosts] = useState([]);
     useEffect(() => {
-        postsService.getAll().then((res) => { setPosts(res) });
+        postsService.getAllPosts().then((res) => { setPosts(res) });
     }, [])
 
     useEffect(() => {
@@ -23,8 +23,8 @@ function Posts({ isInAddPostMode, onCancelAddPost }) {
         }
     }, [])
 
-    function updatePost(postId, currentValue) {
-        postsService.updatePost(postId, currentValue)
+    function editPost(postId, currentValue) {
+        postsService.editPost(postId, currentValue)
             .then((result) => {
                 const updatedPosts = posts.map(post => post._id === postId ? { ...post, ...result } : post);
                 return setPosts(updatedPosts);
@@ -44,12 +44,18 @@ function Posts({ isInAddPostMode, onCancelAddPost }) {
 
     return (
         <>
-            {isInAddPostMode && <AddPost onCancelAddPost={onCancelAddPost} setPosts={setPosts} />}
+            {isInAddPostMode && <AddEditPost
+                onCancelHandler={onCancelAddPost}
+                setPosts={setPosts}
+                mode='add'
+            />}
+
             {posts?.map(post => <Post
                 key={post._id}
                 {...post}
-                updatePost={updatePost}
+                editPost={editPost}
                 updateUser={updateUser}
+                setPosts={setPosts}
             />)}
         </>
     )

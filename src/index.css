@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Coiny&display=swap');
 @import url('https://use.fontawesome.com/releases/v5.15.3/css/all.css');
-
 html {
     margin: auto;
     max-width: 1400px;
@@ -23,5 +22,24 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6, i, p, label {
-    color: gray;
+    color: dimgray;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgb(231, 231, 231);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: lightgray;
 }

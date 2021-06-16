@@ -2,7 +2,7 @@ import './EditDeletePopUpIcons.css';
 
 function EditDeletePopUpIcons({deleteHandler, toggleEditMode}) {
     return (
-        <article className="edit-delete">
+        <>
             <span
                 title="Delete Comment"
                 onClick={deleteHandler}
@@ -15,7 +15,7 @@ function EditDeletePopUpIcons({deleteHandler, toggleEditMode}) {
             >
                 <i className="comment-icon fas fa-pencil-alt"></i>
             </span>
-        </article>
+        </>
     );
 }
 
