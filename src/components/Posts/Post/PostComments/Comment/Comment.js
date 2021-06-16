@@ -31,9 +31,9 @@ function Comment({
             .then((result) => {
                 setComments((comments) => {
                     const index = comments.findIndex((comment) => comment._id === result.deletedCommentId);
-                    const commentsCopy = comments.slice();
-                    commentsCopy.splice(index, 1);
-                    return commentsCopy;
+                    const newComments = comments.slice();
+                    newComments.splice(index, 1);
+                    return newComments;
                 })
             })
     }

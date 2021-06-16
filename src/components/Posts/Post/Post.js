@@ -5,6 +5,7 @@ import Button from '../../Shared/Button';
 import EditDeletePopUpIcons from '../../Shared/EditDeletePopUpIcons';
 import PostComments from './PostComments';
 import AddEditPost from '../AddEditPost';
+import postsService from '../../../services/posts';
 
 function Post({
     owner,
@@ -17,10 +18,10 @@ function Post({
     setPosts
 }) {
 
-    const [ userData ] = useContext(AuthContext);
+    const [userData] = useContext(AuthContext);
 
-    const [ isCommentsVisible, setIsCommentsVisible ] = useState(false);
-    const [ isInEditPostMode, setIsInEditPostMode ] = useState(false);
+    const [isCommentsVisible, setIsCommentsVisible] = useState(false);
+    const [isInEditPostMode, setIsInEditPostMode] = useState(false);
 
     const isOwner = () => userData._id === owner._id;
 
@@ -39,18 +40,27 @@ function Post({
     const toggleEditPostMode = () => setIsInEditPostMode(oldValue => !oldValue);
 
     const deletePostHandler = () => {
-        console.log('Deleeeeteee');
+        postsService.deletePost(_id)
+            .then((result) => {
+                console.log('Deleted post result: ', result);
+                setPosts((posts) => {
+                    const index = posts.findIndex((post) => post._id === result.deletedPostId);
+                    const newPosts = posts.slice();
+                    newPosts.splice(index, 1);
+                    return newPosts;
+                });
+            })
     }
 
 
     if (isInEditPostMode) {
         return (
-            <AddEditPost 
-            onCancelHandler={toggleEditPostMode} 
-            setPosts={setPosts} 
-            mode='edit' 
-            postId={_id} 
-            initialContent={content}
+            <AddEditPost
+                onCancelHandler={toggleEditPostMode}
+                setPosts={setPosts}
+                mode='edit'
+                postId={_id}
+                initialContent={content}
             />
         );
     }

@@ -58,11 +58,30 @@ function editPost(postId, currentValue) {
         .catch(e => console.log("Error from postsService: ", e.message));
 }
 
+function deletePost(postId) {
+    return fetch(`${baseURL}/posts/${postId}`, {
+        method: 'DELETE',
+        credentials: "include",
+        headers: {
+            "Accept": 'application/json',
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Can not delete post !');
+            }
+            return res.json();
+        })
+        .catch(e => console.log("Error from postsService: ", e.message));
+}
+
 
 const postsService = {
     getAllPosts,
     createPost,
     editPost,
+    deletePost
 }
 
 export default postsService;
