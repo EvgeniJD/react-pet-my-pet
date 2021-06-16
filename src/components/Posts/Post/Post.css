@@ -10,6 +10,10 @@
     background-color: #f5f5dc80;
 }
 
+.post-wraper:hover .comment-icon {
+    display: block;
+}
+
 .post-header {
     padding: 10px;
 }
@@ -37,6 +41,7 @@
 .post-header-date {
     font-size: 14px;
     font-style: italic;
+    position: relative;
 }
 
 .post-footer {

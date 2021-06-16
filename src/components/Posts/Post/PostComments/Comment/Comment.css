@@ -40,22 +40,3 @@
     padding: 0 10px;
 }
 
-.comment-icon {
-    position: absolute;
-    cursor: pointer;
-    display: none;
-    bottom: -12px;
-    font-size: 14px;
-}
-
-.comment-icon:hover {
-    color: black;
-}
-
-.fa-pencil-alt {
-    right: 30px;
-}
-
-.fa-trash-alt {
-    right: 10px;
-}

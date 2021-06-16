@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
 import AuthContext from '../../../../../contexts/AuthContext';
 import AddEditComment from '../AddEditComment';
+import EditDeletePopUpIcons from '../../../../Shared/EditDeletePopUpIcons';
 import commentsService from '../../../../../services/comments';
 
 import './Comment.css';
-import { comment } from 'postcss-safe-parser/node_modules/postcss';
 
 function Comment({
     _id,
@@ -54,18 +54,10 @@ function Comment({
             <article className="comment-header">
                 <h4 className="comment-header-username">{owner.username}</h4>
                 <p className="comment-header-date">
-                    {isOwner() && <span
-                        title="Delete Comment"
-                        onClick={deleteCommentHandler}
-                    >
-                        <i className="comment-icon far fa-trash-alt"></i>
-                    </span>}
-                    {isOwner() && <span
-                        title="Edit Comment"
-                        onClick={toggleEditCommentMode}
-                    >
-                        <i className="comment-icon fas fa-pencil-alt">
-                        </i></span>}
+                    {isOwner() && <EditDeletePopUpIcons 
+                        deleteHandler={deleteCommentHandler}
+                        toggleEditMode={toggleEditCommentMode}
+                    />}
                     {new Date(date).toLocaleString()}
                 </p>
 

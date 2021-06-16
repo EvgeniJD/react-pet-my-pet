@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import AuthContext from '../../../contexts/AuthContext';
 import './Post.css';
 import Button from '../../Shared/Button';
+import EditDeletePopUpIcons from '../../Shared/EditDeletePopUpIcons';
 import PostComments from './PostComments';
 
 function Post({
@@ -15,10 +16,12 @@ function Post({
     _id,
 }) {
 
-    const [userData] = useContext(AuthContext);
+    const [ userData ] = useContext(AuthContext);
 
-    const [isCommentsVisible, setIsCommentsVisible] = useState(false);
+    const [ isCommentsVisible, setIsCommentsVisible ] = useState(false);
+    const [ isInEditPostMode, setIsInEditPostMode ] = useState(false);
 
+    const isOwner = () => userData._id === owner._id;
 
     const isUserAlreadyLiked = () => {
         return userData.likes.includes(_id);
@@ -32,24 +35,36 @@ function Post({
         setIsCommentsVisible((oldState) => !oldState);
     };
 
+    const toggleEditPostMode = () => setIsInEditPostMode(oldValue => !oldValue);
+
+    const deletePostHandler = () => {
+        
+    }
+
     return (
         <>
             <article className="post-wraper">
                 <header className="post-header">
                     <div className="post-header-image">
-                        <img src={ owner.avatar } alt="profile-pic" />
+                        <img src={owner.avatar} alt="profile-pic" />
                     </div>
                     <div className="post-header-username-date-wrapper">
                         <h3 className="post-header-username">{owner.username}</h3>
-                        <p className="post-header-date">{new Date(date).toLocaleString()}</p>
+                        <p className="post-header-date">
+                            {isOwner() && <EditDeletePopUpIcons
+                                deleteHandler={deletePostHandler}
+                                toggleEditMode={toggleEditPostMode}
+                            />}
+                            {new Date(date).toLocaleString()}
+                        </p>
                     </div>
                     <p className="post-header-content">{content}</p>
                 </header>
                 <footer className="post-footer">
-                    <Button 
+                    <Button
                         view="success"
                         newClassName={isUserAlreadyLiked() ? 'disabled post-footer-like' : 'post-footer-like'}
-                        onClick={() => { updatePost(_id, { likes }); updateUser(_id, {username: owner.username, id: owner._id}, 'likes') }}
+                        onClick={() => { updatePost(_id, { likes }); updateUser(_id, { username: owner.username, id: owner._id }, 'likes') }}
                     >
                         {`Like ${likes}`}
                     </Button>
@@ -63,7 +78,7 @@ function Post({
                     <Button
                         view="negative"
                         newClassName={isUserAlreadyDisliked() ? 'disabled post-footer-dislike' : 'post-footer-dislike'}
-                        onClick={() => {updatePost(_id, { dislikes }); updateUser(_id, {username: owner.username, id: owner._id}, 'dislikes') }}
+                        onClick={() => { updatePost(_id, { dislikes }); updateUser(_id, { username: owner.username, id: owner._id }, 'dislikes') }}
                     >
                         {`${dislikes} Dislike`}
                     </Button>
