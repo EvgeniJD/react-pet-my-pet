@@ -31,7 +31,46 @@ function getComments(postId) {
         .catch(console.log);
 }
 
+function editComment(commentId, content) {
+    return fetch(`${baseURL}/comments/${commentId}`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+            "Accept": 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(content)
+    })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error('Can not edit comment !');
+            }
+            return res.json();
+        })
+        .catch(console.log);
+}
+
+function deleteComment(commentId) {
+    return fetch(`${baseURL}/comments/${commentId}`, {
+        method: 'DELETE',
+        credentials: "include",
+        headers: {
+            "Accept": 'application/json',
+            'Content-Type': 'application/json',
+        }
+    })
+    .then((res) => {
+        if (!res.ok) {
+            throw new Error('Can not delete comment !');
+        }
+        return res.json();
+    })
+    .catch(console.log);
+}
+
 export default {
     createComment,
-    getComments
+    getComments,
+    editComment,
+    deleteComment
 }

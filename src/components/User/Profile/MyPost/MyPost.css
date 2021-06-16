@@ -1,9 +1,9 @@
 .my-post {
-    border: 1px solid gray;
+    border: none;
     border-radius: 8px;
     margin: 15px;
     display: flex;
-    background-color: beige;
+    background-color: #f5f5dc80;
     box-shadow: 0px 1px 3px 0px grey
 }
 
@@ -16,7 +16,6 @@
 .my-post-content {
     font-style: italic;
     font-weight: bold;
-    color: gray;
     padding: 10px;
     margin: 0;
     overflow: hidden;

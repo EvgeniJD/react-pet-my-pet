@@ -1,9 +1,10 @@
 .add-comment-wrapper {
-    border: 1px solid gray;
+    border: 1px solid #f5f5dc80;
     border-radius: 12px;
     margin: 20px;
-    background-color: beige;
+    background-color: #f5f5dc80;
     position: relative;
+    box-shadow: 0 0 3px 0;
 }
 
 .add-comment-header {

@@ -8,6 +8,8 @@
 .profile-my-posts,
 .profile-latest-activity {
     width: 30%;
+    height: 520px;
+    overflow: auto;
 }
 
 .profile-form-wrapper {

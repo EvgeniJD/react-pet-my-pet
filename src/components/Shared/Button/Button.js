@@ -7,7 +7,7 @@ function Button({
     newClassName,
     children,
 }) {
-    const classes = [view];
+    const classes = ['btn', view];
     if(newClassName) classes.push(newClassName);
 
     let disabled = false;

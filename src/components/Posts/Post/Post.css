@@ -1,12 +1,13 @@
 .post-wraper {
     margin: 50px auto;
     width: 50%;
-    border: 1px solid gray;
+    border: none;
     display: flex;
     flex-direction: column;
     border-radius: 12px;
     position: relative;
     box-shadow: 0px 1px 3px 0px gray;
+    background-color: #f5f5dc80;
 }
 
 .post-header {

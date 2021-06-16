@@ -15,6 +15,10 @@ function MyActivity({
         classes.push('disliked');
     } else if (message.includes('Commented')) {
         classes.push('commented');
+    } else if (message.includes('Deleted')) {
+        classes.push('deleted');
+    } else if (message.includes('Edited')) {
+        classes.push('edited');
     }
 
     return (

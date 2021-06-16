@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import commentsService from '../../../../services/comments';
 import './PostComments.css';
 import Comment from './Comment';
-import AddComment from './AddComment';
+import AddEditComment from './AddEditComment';
 import Button from '../../../Shared/Button';
 
 
@@ -33,12 +33,13 @@ function PostComments({ toggleIsCommentsVisible, postId }) {
                     {comments.length > 0 ? 'Add New Comment' : 'Write First Comment'}
                 </Button>
             </header>}
-            {isInAddCommentMode && <AddComment
-                changeAddCommentMode={changeAddCommentMode}
-                postId={postId}
+            {isInAddCommentMode && <AddEditComment
+                onCancelBtnClick={changeAddCommentMode}
+                id={postId}
                 setComments={setComments}
+                mode="add"
             />}
-            {comments && comments.map(comment => <Comment key={comment._id} {...comment} />)}
+            {(comments.length > 0) && comments.map(comment => <Comment key={comment._id} {...comment} setComments={setComments} />)}
             <footer className="comments-footer">
                 <Button view="negative" onClick={toggleIsCommentsVisible}>Hide Comments</Button>
             </footer>
