@@ -5,6 +5,7 @@ function MyActivity({
     objectId, message, date
 }) {
 
+
     const classes = ['my-activity'];
 
     if (message.includes('Created')) {

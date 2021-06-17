@@ -3,11 +3,26 @@ const { baseURL } = constants;
 
 function getAllPosts() {
     return fetch(`${baseURL}/posts`, {
+        method: 'GET',
         credentials: "include",
     })
         .then(res => {
             if (!res.ok) {
                 throw new Error('Can not get posts!');
+            }
+            return res.json()
+        })
+        .catch(e => console.log("Error from postsService: ", e.message));
+}
+
+function getPost(postId) {
+    return fetch(`${baseURL}/posts/${postId}`, {
+        method: 'GET',
+        credentials: "include",
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Can not get post!');
             }
             return res.json()
         })
@@ -79,6 +94,7 @@ function deletePost(postId) {
 
 const postsService = {
     getAllPosts,
+    getPost,
     createPost,
     editPost,
     deletePost

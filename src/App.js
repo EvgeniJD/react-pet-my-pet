@@ -3,6 +3,7 @@ import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import About from './components/About';
 import Posts from './components/Posts';
+import Post from './components/Posts/Post';
 import Login from './components/User/Login';
 import Register from './components/User/Register';
 import Profile from './components/User/Profile';
@@ -62,10 +63,11 @@ function App() {
 
         <Switch>
           <Route path="/" render={() => <Posts isInAddPostMode={isInAddPostMode} onCancelAddPost={onCancelAddPost} />} exact />
+          <Route path="/post/:postId" component={IsAuth(Post)} />
           <Route path="/about" component={About} />
           <Route path="/user/login" component={IsAuth(Login)} />
           <Route path="/user/register" component={IsAuth(Register)} />
-          <Route path="/user/profile/:id" component={IsAuth(Profile)} />
+          <Route path="/user/profile/:userId" component={IsAuth(Profile)} />
         </Switch>
       </AuthContext.Provider>
     </div>

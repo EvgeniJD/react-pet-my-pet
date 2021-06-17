@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import AuthContext from '../../../contexts/AuthContext';
 import './Post.css';
 import Button from '../../Shared/Button';
@@ -13,12 +14,15 @@ function Post({
     content,
     likes,
     dislikes,
-    editPost,
     _id,
     setPosts
 }) {
+    const match = useRouteMatch();
+    if(!owner) {
+        // postsService.getPost()
+    }
 
-    const [userData] = useContext(AuthContext);
+    const [userData, setUserData] = useContext(AuthContext);
 
     const [isCommentsVisible, setIsCommentsVisible] = useState(false);
     const [isInEditPostMode, setIsInEditPostMode] = useState(false);
@@ -39,10 +43,26 @@ function Post({
 
     const toggleEditPostMode = () => setIsInEditPostMode(oldValue => !oldValue);
 
+    const editPost = (postId, currentValue) => {
+        postsService.editPost(postId, currentValue)
+            .then((result) => {
+                const updatedKey = Object.keys(result)[0];
+                if (updatedKey === 'likes' || updatedKey === 'dislikes') {
+                    setUserData((data) => {
+                        data[updatedKey].push(postId);
+                        return data;
+                    });
+                }
+                setPosts((posts) => {
+                    const updatedPosts = posts.map(post => post._id === postId ? { ...post, ...result } : post);
+                    return updatedPosts;
+                });
+            })
+    }
+
     const deletePostHandler = () => {
         postsService.deletePost(_id)
             .then((result) => {
-                console.log('Deleted post result: ', result);
                 setPosts((posts) => {
                     const index = posts.findIndex((post) => post._id === result.deletedPostId);
                     const newPosts = posts.slice();
