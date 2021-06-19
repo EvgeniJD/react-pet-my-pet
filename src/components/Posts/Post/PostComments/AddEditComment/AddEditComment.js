@@ -12,7 +12,8 @@ function AddComment({
   setComments,
   mode,
   initialContent,
-  setPost
+  setPost,
+  editComment
 }) {
 
   const [userData] = useContext(AuthContext);
@@ -66,16 +67,8 @@ function AddComment({
           onCancelBtnClick();
         })
     } else if (mode === 'edit') {
-      commentsService.editComment(id, { content })
-        .then((comment) => {
-          console.log('Edited Comment: ', comment);
-          setComments((comments) => {
-            return comments.map(currComment => currComment._id === comment._id ? comment : currComment);
-          });
-
-          setContent('');
-          onCancelBtnClick();
-        })
+      editComment(id, { content });
+      onCancelBtnClick();
     }
 
   }

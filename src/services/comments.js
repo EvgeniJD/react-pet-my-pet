@@ -31,7 +31,13 @@ function getComments(postId) {
         .catch(console.log);
 }
 
-function editComment(commentId, content) {
+function editComment(commentId, currentValue) {
+    const updateKey = Object.keys(currentValue)[0];
+
+    if (updateKey === 'likes' || updateKey === 'dislikes') {
+        currentValue[updateKey] += 1;
+    }
+
     return fetch(`${baseURL}/comments/${commentId}`, {
         method: "PUT",
         credentials: "include",
@@ -39,7 +45,7 @@ function editComment(commentId, content) {
             "Accept": 'application/json',
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(content)
+        body: JSON.stringify(currentValue)
     })
         .then((res) => {
             if (!res.ok) {

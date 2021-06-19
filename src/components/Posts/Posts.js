@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect } from 'react';
 import useFetch from '../../hooks/useFetch';
 import Post from './Post';
 import AddEditPost from './AddEditPost';
@@ -6,21 +6,15 @@ import postsService from '../../services/posts';
 import IsAuth from '../../hoc/IsAuth';
 
 function Posts({ isInAddPostMode, onCancelAddPost }) {
-    // const [posts, setPosts] = useFetch(postsService.getAllPosts, []);
-    const [posts, setPosts] = useState([]);
+    
+    const [posts, setPosts] = useFetch(postsService.getAllPosts, []);
     console.log('POSTS: ', posts);
-
-    useEffect(() => {
-        postsService.getAllPosts().then((res) => { setPosts(res) });
-    }, [])
 
     useEffect(() => {
         return function () {
             onCancelAddPost();
         }
     }, [])
-
-    
 
     return (
         <>

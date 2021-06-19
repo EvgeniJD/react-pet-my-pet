@@ -3,6 +3,7 @@ import AuthContext from '../../../../../contexts/AuthContext';
 import AddEditComment from '../AddEditComment';
 import EditDeletePopUpIcons from '../../../../Shared/EditDeletePopUpIcons';
 import commentsService from '../../../../../services/comments';
+import Button from '../../../../Shared/Button';
 
 import './Comment.css';
 
@@ -11,11 +12,13 @@ function Comment({
     owner,
     content,
     date,
+    likes,
+    dislikes,
     setComments,
     setPost
 }) {
 
-    const [userData] = useContext(AuthContext);
+    const [userData, setUserData] = useContext(AuthContext);
 
     const [isInEditCommentMode, setIsInEditCommentMode] = useState(false);
 
@@ -23,9 +26,31 @@ function Comment({
         return userData._id === owner._id;
     }
 
+    const isUserAlreadyLiked = () => userData.likes.includes(_id);
+    const isUserAlreadyDisliked = () => userData.dislikes.includes(_id);
+
     function toggleEditCommentMode() {
         setIsInEditCommentMode((state) => !state);
     }
+
+    function editComment(id, currentValue) {
+        const updateKey = Object.keys(currentValue)[0];
+
+        commentsService.editComment(id, currentValue)
+            .then((comment) => {
+                console.log('Edited Comment: ', comment);
+                setComments((comments) => {
+                    return comments.map(currComment => currComment._id === comment._id ? comment : currComment);
+                });
+
+                if (updateKey != 'content') {
+                    setUserData((user) => {
+                        return { ...user, [updateKey]: _id }
+                    });
+                }
+            })
+    }
+
 
     function deleteCommentHandler() {
         commentsService.deleteComment(_id)
@@ -41,7 +66,7 @@ function Comment({
                     const commentsCopy = post.comments.slice();
                     const index = commentsCopy.findIndex((comment) => comment._id === result.deletedCommentId);
                     commentsCopy.splice(index, 1);
-                    return {...post, comments: commentsCopy};
+                    return { ...post, comments: commentsCopy };
                 })
             })
     }
@@ -53,6 +78,7 @@ function Comment({
             setComments={setComments}
             mode="edit"
             initialContent={content}
+            editComment={editComment}
         />
     }
 
@@ -62,7 +88,7 @@ function Comment({
             <article className="comment-header">
                 <h4 className="comment-header-username">{owner.username}</h4>
                 <p className="comment-header-date">
-                    {isOwner() && <EditDeletePopUpIcons 
+                    {isOwner() && <EditDeletePopUpIcons
                         deleteHandler={deleteCommentHandler}
                         toggleEditMode={toggleEditCommentMode}
                     />}
@@ -76,6 +102,22 @@ function Comment({
                     {content}
                 </p>
             </article>
+            <footer className="comment-footer">
+                <Button
+                    view="success"
+                    newClassName={isUserAlreadyLiked() ? 'disabled comment-like-btn' : 'comment-like-btn'}
+                    onClick={() => editComment(_id, { likes })}
+                >
+                    Like <b>{`${likes}`}</b>
+                </Button>
+                <Button
+                    view="negative"
+                    onClick={() => editComment(_id, { dislikes })}
+                    newClassName={isUserAlreadyDisliked() ? 'disabled comment-dislike-btn' : 'comment-dislike-btn'}
+                >
+                    <b>{`${dislikes}`}</b> Dislike
+                </Button>
+            </footer>
         </article>
     );
 }

@@ -36,20 +36,21 @@ function Profile() {
 
   return (
     <section className="profile-wrapper">
-      <article className="profile-my-posts">
-        <h2 className="my-posts-heading">
-          My Posts
-        </h2>
+      {user.posts?.length > 0 &&
+        <article className="profile-my-posts">
+          <h2 className="my-posts-heading">
+            My Posts
+          </h2>
 
-        {user.posts && user.posts.map(post => <MyPost
-          key={post._id}
-          _id={post._id}
-          content={post.content}
-          avatar={user.avatar}
-          username={user.username}
-        />)}
+          {user.posts.map(post => <MyPost
+            key={post._id}
+            _id={post._id}
+            content={post.content}
+            avatar={user.avatar}
+            username={user.username}
+          />)}
 
-      </article>
+        </article>}
       <article className="profile-user">
         <h2 className="profile-username">
           {user.username}
@@ -104,7 +105,7 @@ function Profile() {
           }
         </div>
       </article>
-      {user.lastActivity > 0 &&
+      {user.lastActivity?.length > 0 &&
         <article className="profile-latest-activity">
           <h2 className="my-activity-heading">
             Latest Activity

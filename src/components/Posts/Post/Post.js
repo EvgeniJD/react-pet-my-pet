@@ -29,6 +29,7 @@ function Post(props) {
     const [isInEditPostMode, setIsInEditPostMode] = useState(false);
 
     console.log('Post: ', post);
+    console.log('UserData: ', userData)
 
     const isOwner = () => userData._id === post.owner._id;
 
@@ -116,7 +117,7 @@ function Post(props) {
                             newClassName={isUserAlreadyLiked() ? 'disabled post-footer-like' : 'post-footer-like'}
                             onClick={() => editPost(post._id, { likes: post.likes })}
                         >
-                            {`Like ${post.likes}`}
+                            Like <b>{`${post.likes}`}</b>
                         </Button>
                         <Button
                             view={isCommentsVisible ? "round-top gray" : "round-top blue"}
@@ -130,7 +131,7 @@ function Post(props) {
                             newClassName={isUserAlreadyDisliked() ? 'disabled post-footer-dislike' : 'post-footer-dislike'}
                             onClick={() => editPost(post._id, { dislikes: post.dislikes })}
                         >
-                            {`${post.dislikes} Dislike`}
+                            <b>{`${post.dislikes}`}</b> Dislike
                         </Button>
                     </footer>
                 </article>
