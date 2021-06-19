@@ -12,7 +12,7 @@ function IsAuth(InnerComponent) {
         const currentPath = location.pathname;
 
         const isAuthNeeded = !(currentPath === '/user/login' || currentPath === '/user/register');
-        const isUserAuthenticated = Boolean(userData);
+        const isUserAuthenticated = !!userData;
         
         if (isAuthNeeded && !isUserAuthenticated) {
             return <Redirect to="/user/login" />;

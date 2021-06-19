@@ -11,7 +11,8 @@ function AddComment({
   id,
   setComments,
   mode,
-  initialContent
+  initialContent,
+  setPost
 }) {
 
   const [userData] = useContext(AuthContext);
@@ -53,6 +54,12 @@ function AddComment({
           setComments((comments) => {
             comments.unshift(createdComment);
             return comments;
+          })
+
+          setPost((post) => {
+            const updatedComments = post.comments.slice();
+            updatedComments.push(createdComment._id);
+            return {...post, comments: updatedComments};
           })
 
           setContent('');

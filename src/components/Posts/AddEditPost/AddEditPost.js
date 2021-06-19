@@ -1,5 +1,6 @@
 import './AddEditPost.css';
 import { useState, useContext } from 'react';
+
 import AuthContext from '../../../contexts/AuthContext';
 
 import Button from '../../Shared/Button';
@@ -7,7 +8,7 @@ import TextArea from '../../Shared/TextArea';
 
 import postsService from '../../../services/posts';
 
-function AddEditPost({ onCancelHandler, setPosts, mode, postId, initialContent }) {
+function AddEditPost({ onCancelHandler, mode, postId, initialContent, editPost, setPosts }) {
 
     const [content, setContent] = useState(mode === 'add' ? '' : initialContent);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -38,28 +39,20 @@ function AddEditPost({ onCancelHandler, setPosts, mode, postId, initialContent }
 
             postsService.createPost(post)
                 .then((createdPost) => {
+
+                    onCancelHandler();
+
                     setPosts(posts => {
                         const newPosts = posts.slice();
                         newPosts.unshift(createdPost);
                         return newPosts;
                     });
 
-                    setContent('');
-                    onCancelHandler();
                 })
         } else if (mode === 'edit') {
             if (content === initialContent) return;
-
-            postsService.editPost(postId, { content })
-                .then((newContent) => {
-                    setPosts((posts) => {
-                        const newPosts = posts.map(post => post._id === postId ? { ...post, ...newContent } : post);
-                        return newPosts;
-                    });
-
-                    setContent('');
-                    onCancelHandler();
-                });
+            onCancelHandler();
+            return editPost(postId, { content });
         }
     }
 

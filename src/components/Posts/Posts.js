@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import useFetch from '../../hooks/useFetch';
 import Post from './Post';
 import AddEditPost from './AddEditPost';
@@ -8,6 +8,8 @@ import IsAuth from '../../hoc/IsAuth';
 function Posts({ isInAddPostMode, onCancelAddPost }) {
     // const [posts, setPosts] = useFetch(postsService.getAllPosts, []);
     const [posts, setPosts] = useState([]);
+    console.log('POSTS: ', posts);
+
     useEffect(() => {
         postsService.getAllPosts().then((res) => { setPosts(res) });
     }, [])
@@ -24,14 +26,14 @@ function Posts({ isInAddPostMode, onCancelAddPost }) {
         <>
             {isInAddPostMode && <AddEditPost
                 onCancelHandler={onCancelAddPost}
-                setPosts={setPosts}
                 mode='add'
+                setPosts={setPosts}
             />}
 
             {posts?.map(post => <Post
                 key={post._id}
-                {...post}
                 setPosts={setPosts}
+                {...post}
             />)}
         </>
     )

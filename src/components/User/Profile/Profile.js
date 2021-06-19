@@ -21,8 +21,6 @@ function Profile() {
     setIsInChangeInfoMode(oldState => !oldState);
   }
 
-  const arr = [1, 2, 3];
-
   const yupSchema = Yup.object({
     username: Yup.string()
       .required('Username is required!')
@@ -106,12 +104,13 @@ function Profile() {
           }
         </div>
       </article>
-      <article className="profile-latest-activity">
-        <h2 className="my-activity-heading">
-          Latest Activity
-        </h2>
-        {user.lastActivity && user.lastActivity.map((activity, i) => <MyActivity key={activity._id} {...activity} />)}
-      </article>
+      {user.lastActivity > 0 &&
+        <article className="profile-latest-activity">
+          <h2 className="my-activity-heading">
+            Latest Activity
+          </h2>
+          {user.lastActivity.map((activity, i) => <MyActivity key={activity._id} {...activity} />)}
+        </article>}
     </section>
   )
 }
