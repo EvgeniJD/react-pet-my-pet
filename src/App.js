@@ -8,6 +8,7 @@ import Post from './components/Posts/Post';
 import Login from './components/User/Login';
 import Register from './components/User/Register';
 import Profile from './components/User/Profile';
+import ErrorPage from './components/Shared/ErrorPage';
 
 import userService from './services/user';
 
@@ -76,6 +77,7 @@ function App() {
             <Route path="/user/profile/:userId" component={IsAuth(Profile)} />
 
             <Route path="/about" component={About} />
+            <Route path="*" component={ErrorPage} />
           </Switch>
       </AuthContext.Provider>
     </div>

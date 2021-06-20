@@ -5,6 +5,8 @@ import Button from '../../Shared/Button';
 import EditDeletePopUpIcons from '../../Shared/EditDeletePopUpIcons';
 import PostComments from './PostComments';
 import AddEditPost from '../AddEditPost';
+import ErrorPage from '../../Shared/ErrorPage';
+
 import postsService from '../../../services/posts';
 import './Post.css';
 
@@ -21,9 +23,12 @@ function Post(props) {
             console.log('GOING TO FETCH POST !');
             const postId = match.params.postId;
             postsService.getPost(postId)
-                .then((result) => setPost(result));
+                .then((result) => {
+                    return setPost(result)
+                });
         }
     }, [])
+
 
     const [isCommentsVisible, setIsCommentsVisible] = useState(isInSinglePostMode ? true : false);
     const [isInEditPostMode, setIsInEditPostMode] = useState(false);
@@ -51,9 +56,9 @@ function Post(props) {
                         return data;
                     });
                 }
-               
+
                 setPost((post) => {
-                    const updatedPost = {...post, ...result};
+                    const updatedPost = { ...post, ...result };
                     return updatedPost;
                 })
             })
@@ -65,7 +70,7 @@ function Post(props) {
         postsService.deletePost(post._id)
             .then((result) => {
 
-                if(currentPath === '/') {
+                if (currentPath === '/') {
                     props.setPosts((posts) => {
                         const index = posts.findIndex((post) => post._id === result.deletedPostId);
                         const newPosts = posts.slice();
@@ -74,10 +79,11 @@ function Post(props) {
                     });
                 } else {
                     history.push('/');
-                } 
+                }
             })
     }
 
+    if (post.errorMessage) return <ErrorPage />
 
     if (isInEditPostMode) {
         return (
@@ -136,10 +142,10 @@ function Post(props) {
                     </footer>
                 </article>
 
-                {isCommentsVisible && <PostComments 
-                toggleIsCommentsVisible={toggleIsCommentsVisible} 
-                postId={post._id} 
-                setPost={setPost}/>}
+                {isCommentsVisible && <PostComments
+                    toggleIsCommentsVisible={toggleIsCommentsVisible}
+                    postId={post._id}
+                    setPost={setPost} />}
             </>
         )
     } else {

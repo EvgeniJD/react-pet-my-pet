@@ -1,0 +1,9 @@
+.error-page {
+    height: 500px;
+    margin: 30px;
+    text-align: center;
+}
+
+.error-page img {
+    height: 100%;
+}

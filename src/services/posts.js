@@ -21,9 +21,6 @@ function getPost(postId) {
         credentials: "include",
     })
         .then(res => {
-            if (!res.ok) {
-                throw new Error('Can not get post!');
-            }
             return res.json()
         })
         .catch(e => console.log("Error from postsService: ", e.message));
