@@ -43,9 +43,12 @@ function Comment({
                     return comments.map(currComment => currComment._id === comment._id ? comment : currComment);
                 });
 
-                if (updateKey != 'content') {
+                if (updateKey !== 'content') {
                     setUserData((user) => {
-                        return { ...user, [updateKey]: _id }
+                        console.log('User from Comment setUser: ', user);
+                        const updatedUserLikesDislikes = user[updateKey].slice();
+                        updatedUserLikesDislikes.push(_id);
+                        return { ...user, [updateKey]: updatedUserLikesDislikes }
                     });
                 }
             })
