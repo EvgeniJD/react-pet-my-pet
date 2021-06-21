@@ -36,11 +36,11 @@ function Post(props) {
     console.log('Post: ', post);
     console.log('UserData: ', userData)
 
-    const isOwner = () => userData._id === post.owner._id;
+    const isOwner = () => post.owner._id === userData._id;
 
-    const isUserAlreadyLiked = () => userData.likes.includes(post._id);
+    const isUserAlreadyLiked = () => post.likes.includes(userData._id);
 
-    const isUserAlreadyDisliked = () => userData.dislikes.includes(post._id);
+    const isUserAlreadyDisliked = () => post.dislikes.includes(userData._id);
 
     const toggleIsCommentsVisible = () => setIsCommentsVisible((oldState) => !oldState);
 
@@ -49,17 +49,8 @@ function Post(props) {
     const editPost = (postId, currentValue) => {
         postsService.editPost(postId, currentValue)
             .then((result) => {
-                const updatedKey = Object.keys(result)[0];
-                if (updatedKey === 'likes' || updatedKey === 'dislikes') {
-                    setUserData((data) => {
-                        data[updatedKey].push(postId);
-                        return data;
-                    });
-                }
-
                 setPost((post) => {
-                    const updatedPost = { ...post, ...result };
-                    return updatedPost;
+                    return { ...post, ...result };
                 })
             })
     }
@@ -87,13 +78,19 @@ function Post(props) {
 
     if (isInEditPostMode) {
         return (
-            <AddEditPost
-                onCancelHandler={toggleEditPostMode}
-                mode='edit'
-                editPost={editPost}
-                postId={post._id}
-                initialContent={post.content}
-            />
+            <>
+                <AddEditPost
+                    onCancelHandler={toggleEditPostMode}
+                    mode='edit'
+                    editPost={editPost}
+                    postId={post._id}
+                    initialContent={post.content}
+                />
+                {isCommentsVisible && <PostComments
+                    toggleIsCommentsVisible={toggleIsCommentsVisible}
+                    postId={post._id}
+                    setPost={setPost} />}
+            </>
         );
     }
 
@@ -121,9 +118,9 @@ function Post(props) {
                         <Button
                             view="success"
                             newClassName={isUserAlreadyLiked() ? 'disabled post-footer-like' : 'post-footer-like'}
-                            onClick={() => editPost(post._id, { likes: post.likes })}
+                            onClick={() => editPost(post._id, { likes: userData._id })}
                         >
-                            Like <b>{`${post.likes}`}</b>
+                            Like <b>{`${post.likes.length}`}</b>
                         </Button>
                         <Button
                             view={isCommentsVisible ? "round-top gray" : "round-top blue"}
@@ -135,9 +132,9 @@ function Post(props) {
                         <Button
                             view="negative"
                             newClassName={isUserAlreadyDisliked() ? 'disabled post-footer-dislike' : 'post-footer-dislike'}
-                            onClick={() => editPost(post._id, { dislikes: post.dislikes })}
+                            onClick={() => editPost(post._id, { dislikes: userData._id })}
                         >
-                            <b>{`${post.dislikes}`}</b> Dislike
+                            <b>{`${post.dislikes.length}`}</b> Dislike
                         </Button>
                     </footer>
                 </article>

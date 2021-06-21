@@ -105,12 +105,12 @@ function Profile() {
           }
         </div>
       </article>
-      {user.lastActivity?.length > 0 &&
+      {user.latestActivity?.length > 0 &&
         <article className="profile-latest-activity">
           <h2 className="my-activity-heading">
             Latest Activity
           </h2>
-          {user.lastActivity.map((activity, i) => <MyActivity key={activity._id} {...activity} />)}
+          {user.latestActivity.map((activity, i) => <MyActivity key={activity._id} {...activity} />)}
         </article>}
     </section>
   )

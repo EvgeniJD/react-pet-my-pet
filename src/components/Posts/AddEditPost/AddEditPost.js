@@ -32,8 +32,8 @@ function AddEditPost({ onCancelHandler, mode, postId, initialContent, editPost, 
             const post = {
                 content,
                 owner: userData._id,
-                likes: 0,
-                dislikes: 0,
+                likes: [],
+                dislikes: [],
                 comments: []
             }
 
@@ -78,7 +78,7 @@ function AddEditPost({ onCancelHandler, mode, postId, initialContent, editPost, 
                     />
                 </header>
                 <footer className="post-footer">
-                    <Button type="submit" view="success" newClassName="add-post-btn">{mode === 'add' ? 'Add' : 'Edit'}</Button>
+                    <Button type="submit" view="success" newClassName="add-post-btn">{mode === 'add' ? 'Add Post' : 'Edit Post'}</Button>
                     <Button type="button" onClick={onCancelHandler} view="negative" newClassName="cancel-btn" >Cancel</Button>
                 </footer>
             </article>

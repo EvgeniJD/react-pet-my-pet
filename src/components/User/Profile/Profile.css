@@ -12,6 +12,11 @@
     overflow: auto;
 }
 
+.profile-user {
+    margin: auto;
+}
+
+
 .profile-form-wrapper {
     width: 80%;
     margin: 0 auto;

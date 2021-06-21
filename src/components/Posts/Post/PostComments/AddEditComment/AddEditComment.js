@@ -6,13 +6,13 @@ import commentsService from '../../../../../services/comments';
 import Button from '../../../../Shared/Button';
 import TextArea from '../../../../Shared/TextArea';
 
-function AddComment({
+function AddEditComment({
   onCancelBtnClick,
   id,
   setComments,
   mode,
   initialContent,
-  setPost,
+  // setPost,
   editComment
 }) {
 
@@ -43,8 +43,8 @@ function AddComment({
     if (mode === 'add') {
       const comment = {
         content,
-        likes: 0,
-        dislikes: 0,
+        likes: [],
+        dislikes: [],
         owner: userData._id,
         parentPost: id
       }
@@ -57,11 +57,11 @@ function AddComment({
             return comments;
           })
 
-          setPost((post) => {
-            const updatedComments = post.comments.slice();
-            updatedComments.push(createdComment._id);
-            return {...post, comments: updatedComments};
-          })
+          // setPost((post) => {
+          //   const updatedComments = post.comments.slice();
+          //   updatedComments.push(createdComment._id);
+          //   return {...post, comments: updatedComments};
+          // })
 
           setContent('');
           onCancelBtnClick();
@@ -89,7 +89,7 @@ function AddComment({
         />
       </header>
       <footer className="add-comment-footer">
-        <Button view="success" type="submit">{mode === 'add' ? 'Add' : 'Edit' }</Button>
+        <Button view="success" type="submit">{mode === 'add' ? 'Add Comment' : 'Edit Comment' }</Button>
         <Button view="negative" type="button" onClick={onCancelBtnClick}>Cancel</Button>
       </footer>
     </form>
@@ -97,4 +97,4 @@ function AddComment({
 
 }
 
-export default AddComment;
+export default AddEditComment;

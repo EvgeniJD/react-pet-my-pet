@@ -46,12 +46,6 @@ function createPost(post) {
 }
 
 function editPost(postId, currentValue) {
-    const updateKey = Object.keys(currentValue)[0];
-
-    if (updateKey === 'likes' || updateKey === 'dislikes') {
-        currentValue[updateKey] += 1;
-    }
-
     return fetch(`${baseURL}/posts/${postId}`, {
         method: 'PUT',
         credentials: "include",

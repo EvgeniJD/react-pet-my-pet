@@ -15,10 +15,10 @@ function Comment({
     likes,
     dislikes,
     setComments,
-    setPost
+    // setPost
 }) {
 
-    const [userData, setUserData] = useContext(AuthContext);
+    const [userData] = useContext(AuthContext);
 
     const [isInEditCommentMode, setIsInEditCommentMode] = useState(false);
 
@@ -26,31 +26,19 @@ function Comment({
         return userData._id === owner._id;
     }
 
-    const isUserAlreadyLiked = () => userData.likes.includes(_id);
-    const isUserAlreadyDisliked = () => userData.dislikes.includes(_id);
+    const isUserAlreadyLiked = () => likes.includes(userData._id);
+    const isUserAlreadyDisliked = () => dislikes.includes(userData._id);
 
     function toggleEditCommentMode() {
         setIsInEditCommentMode((state) => !state);
     }
 
     function editComment(id, currentValue) {
-        const updateKey = Object.keys(currentValue)[0];
-
         commentsService.editComment(id, currentValue)
-            .then((comment) => {
-                console.log('Edited Comment: ', comment);
+            .then((result) => {
                 setComments((comments) => {
-                    return comments.map(currComment => currComment._id === comment._id ? comment : currComment);
+                    return comments.map(comment => comment._id === id ? {...comment, ...result} : comment);
                 });
-
-                if (updateKey !== 'content') {
-                    setUserData((user) => {
-                        console.log('User from Comment setUser: ', user);
-                        const updatedUserLikesDislikes = user[updateKey].slice();
-                        updatedUserLikesDislikes.push(_id);
-                        return { ...user, [updateKey]: updatedUserLikesDislikes }
-                    });
-                }
             })
     }
 
@@ -65,12 +53,12 @@ function Comment({
                     return newComments;
                 })
 
-                setPost((post) => {
-                    const commentsCopy = post.comments.slice();
-                    const index = commentsCopy.findIndex((comment) => comment._id === result.deletedCommentId);
-                    commentsCopy.splice(index, 1);
-                    return { ...post, comments: commentsCopy };
-                })
+                // setPost((post) => {
+                //     const commentsCopy = post.comments.slice();
+                //     const index = commentsCopy.findIndex((comment) => comment._id === result.deletedCommentId);
+                //     commentsCopy.splice(index, 1);
+                //     return { ...post, comments: commentsCopy };
+                // })
             })
     }
 
@@ -109,16 +97,16 @@ function Comment({
                 <Button
                     view="success"
                     newClassName={isUserAlreadyLiked() ? 'disabled comment-like-btn' : 'comment-like-btn'}
-                    onClick={() => editComment(_id, { likes })}
+                    onClick={() => editComment(_id, { likes: userData._id })}
                 >
-                    Like <b>{`${likes}`}</b>
+                    Like <b>{`${likes.length}`}</b>
                 </Button>
                 <Button
                     view="negative"
-                    onClick={() => editComment(_id, { dislikes })}
+                    onClick={() => editComment(_id, { dislikes: userData._id })}
                     newClassName={isUserAlreadyDisliked() ? 'disabled comment-dislike-btn' : 'comment-dislike-btn'}
                 >
-                    <b>{`${dislikes}`}</b> Dislike
+                    <b>{`${dislikes.length}`}</b> Dislike
                 </Button>
             </footer>
         </article>

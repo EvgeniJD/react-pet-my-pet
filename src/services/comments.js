@@ -32,12 +32,6 @@ function getComments(postId) {
 }
 
 function editComment(commentId, currentValue) {
-    const updateKey = Object.keys(currentValue)[0];
-
-    if (updateKey === 'likes' || updateKey === 'dislikes') {
-        currentValue[updateKey] += 1;
-    }
-
     return fetch(`${baseURL}/comments/${commentId}`, {
         method: "PUT",
         credentials: "include",

@@ -36,6 +36,7 @@ function PostComments({ toggleIsCommentsVisible, postId, setPost }) {
                     {comments.length > 0 ? 'Add New Comment' : 'Write First Comment'}
                 </Button>
             </header>}
+
             {isInAddCommentMode &&
                 <AddEditComment
                     onCancelBtnClick={changeAddCommentMode}
@@ -44,6 +45,7 @@ function PostComments({ toggleIsCommentsVisible, postId, setPost }) {
                     mode="add"
                     setPost={setPost}
                 />}
+
             {(comments.length > 0) && comments.map(comment =>
                 <Comment
                     key={comment._id}
@@ -51,6 +53,7 @@ function PostComments({ toggleIsCommentsVisible, postId, setPost }) {
                     setComments={setComments}
                     setPost={setPost}
                 />)}
+                
             <footer className="comments-footer">
                 <Button view="negative" onClick={toggleIsCommentsVisible}>Hide Comments</Button>
             </footer>

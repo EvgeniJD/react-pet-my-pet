@@ -26,7 +26,7 @@ function Header({ onAddPostBtnClickHandler, onLogoutBtnClickHandler }) {
 
             <ul className="header-ul">
                 {userData && <li className="header-ul-add-post">
-                    <Button type="button" view="round blue" onClick={onAddPostBtnClickHandler}>New Post</Button>
+                    <Button type="button" view="round blue" onClick={onAddPostBtnClickHandler}>Add New Post</Button>
                 </li>}
                 {!userData && <li><Link to="/user/login">Login</Link></li>}
                 {!userData && <li><Link to="/user/register">Register</Link></li>}
