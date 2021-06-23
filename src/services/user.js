@@ -8,7 +8,6 @@ function register(user) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://amica-b2b6c.web.app'
         },
         body: JSON.stringify(user),
         credentials: "include"
@@ -23,7 +22,6 @@ function login(user) {
         headers: {
             "Accept": 'application/json',
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://amica-b2b6c.web.app'
         },
         body: JSON.stringify(user),
         credentials: "include",
@@ -37,7 +35,6 @@ function logout() {
         credentials: "include",
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://amica-b2b6c.web.app'
         },
     })
         .then(res => res.json())
@@ -47,9 +44,6 @@ function logout() {
 function checkAuth() {
     return fetch(`${baseURL}/user/check-auth`, {
         credentials: "include",
-        headers: {
-            'Access-Control-Allow-Origin': 'https://amica-b2b6c.web.app',
-        }
     })
         .then(res => {
             if (!res.ok) {
@@ -63,10 +57,6 @@ function checkAuth() {
 function getUser(id) {
     return fetch(`${baseURL}/user/${id}`, {
         credentials: "include",
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://amica-b2b6c.web.app'
-        },
     })
         .then(res => {
             if (!res.ok) {
@@ -83,7 +73,6 @@ function editUser(userId, data) {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://amica-b2b6c.web.app'
         },
         body: JSON.stringify(data),
         credentials: "include"
