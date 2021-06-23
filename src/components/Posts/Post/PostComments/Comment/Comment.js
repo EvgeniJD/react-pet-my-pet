@@ -15,7 +15,6 @@ function Comment({
     likes,
     dislikes,
     setComments,
-    // setPost
 }) {
 
     const [userData] = useContext(AuthContext);
@@ -52,13 +51,6 @@ function Comment({
                     newComments.splice(index, 1);
                     return newComments;
                 })
-
-                // setPost((post) => {
-                //     const commentsCopy = post.comments.slice();
-                //     const index = commentsCopy.findIndex((comment) => comment._id === result.deletedCommentId);
-                //     commentsCopy.splice(index, 1);
-                //     return { ...post, comments: commentsCopy };
-                // })
             })
     }
 

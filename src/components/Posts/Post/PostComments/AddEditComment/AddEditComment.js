@@ -12,7 +12,6 @@ function AddEditComment({
   setComments,
   mode,
   initialContent,
-  // setPost,
   editComment
 }) {
 
@@ -56,12 +55,6 @@ function AddEditComment({
             comments.unshift(createdComment);
             return comments;
           })
-
-          // setPost((post) => {
-          //   const updatedComments = post.comments.slice();
-          //   updatedComments.push(createdComment._id);
-          //   return {...post, comments: updatedComments};
-          // })
 
           setContent('');
           onCancelBtnClick();
