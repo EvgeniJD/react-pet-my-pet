@@ -41,6 +41,9 @@ function logout() {
 function checkAuth() {
     return fetch(`${baseURL}/user/check-auth`, {
         credentials: "include",
+        headers: {
+            'Access-Control-Allow-Origin': 'https://amica-b2b6c.web.app'
+        }
     })
         .then(res => {
             if (!res.ok) {
