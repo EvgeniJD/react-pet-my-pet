@@ -1,5 +1,5 @@
-import constants from '../constants';
-const { baseURL } = constants;
+import config from '../config';
+const { baseURL } = config;
 
 function createComment(comment) {
     return fetch(`${baseURL}/comments`, {

@@ -1,5 +1,5 @@
-import constants from '../constants';
-const { baseURL } = constants;
+import config from '../config';
+const { baseURL } = config;
 
 function getAllPosts() {
     return fetch(`${baseURL}/posts`, {
