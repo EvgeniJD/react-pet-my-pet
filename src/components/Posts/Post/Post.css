@@ -64,3 +64,17 @@
 .post-footer-dislike {
     right: 0;
 }
+
+@media all and (max-width: 900px) {
+    .post-wraper {
+        width: 90%;
+    }
+
+    .post-header-image {
+        height: 60px;
+    }
+
+    .post-header-date {
+        font-size: 10px;
+    }
+}

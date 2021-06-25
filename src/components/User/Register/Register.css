@@ -60,3 +60,10 @@
     margin-top: 10px;
     
 }
+
+@media all and (max-width: 900px) {
+    .reg-form-wrapper {
+        width: unset;
+        padding: 50px 40px;
+    }
+}

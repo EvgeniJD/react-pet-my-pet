@@ -58,3 +58,22 @@
 .my-activity-heading {
     text-align: center;
 }
+
+@media all and (max-width: 900px) {
+    .profile-wrapper {
+        flex-direction: column;
+    }
+
+    .profile-user,
+    .profile-my-posts,
+    .profile-latest-activity {
+        width: unset;
+        height: unset;
+        margin: 20px 0;
+    }
+
+    .profile-user {
+        order: -1;
+    }
+
+}

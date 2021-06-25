@@ -1,10 +1,10 @@
 .btn:hover {
     box-shadow: 0 0 5px 0;
+    cursor: pointer;
 }
 
 .success, .negative, .round, .round-top, .round-bottom {
     padding: 5px 15px;
-    cursor: pointer;
     border: none;
 }
 

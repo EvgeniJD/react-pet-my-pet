@@ -43,3 +43,7 @@ h1, h2, h3, h4, h5, h6, i, p, label {
 ::-webkit-scrollbar-thumb:hover {
     background: lightgray;
 }
+
+li {
+    list-style: none;
+}

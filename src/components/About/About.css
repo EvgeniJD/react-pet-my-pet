@@ -6,3 +6,9 @@
 .about h1 {
     text-align: center;
 }
+
+@media all and (max-width: 900px) {
+    .about {
+        width: unset;
+    }
+}

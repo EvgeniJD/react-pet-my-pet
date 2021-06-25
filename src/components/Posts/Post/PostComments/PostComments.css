@@ -13,3 +13,9 @@
 .comments-footer {
     text-align: right;
 }
+
+@media all and (max-width: 900px) {
+    .comments-wrapper {
+        width: 85%;
+    }
+}

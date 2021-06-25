@@ -60,3 +60,9 @@
 .comment-dislike-btn {
     right: 0;
 }
+
+@media all and (max-width: 900px) {
+    .comment-header-date {
+        font-size: 8px;
+    }
+}

@@ -44,8 +44,80 @@
     -webkit-text-fill-color: transparent;
 }
 
-.header-ul li {
-    list-style: none;
+.header-menu {
+    position: relative;
+}
+
+.header-menu i{
+    font-size: 20px;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.header-menu i:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.auth-menu {
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.auth-menu-add-post {
     margin-right: 20px;
 }
 
+.no-auth-menu {
+    position: absolute;
+    right: 0;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 0 3px 0px;
+    background-color: beige;
+}
+
+.no-auth-menu li {
+    margin-bottom: 8px;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.no-auth-menu li:hover {
+    background-color: lightgrey;
+}
+
+.fas:hover {
+    cursor: pointer;
+
+}
+
+.fa-plus, .fa-sign-out-alt {
+    display: none;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.fa-plus {
+    position: absolute;
+    left: 50%;
+    bottom: -40px;
+    transform: translate(-50%, 0);
+}
+
+@media all and (max-width: 900px) {
+    .fa-plus, .fa-sign-out-alt {
+        display: block;
+    }
+
+    .add-post-btn-big, .logout-btn {
+        display: none;
+    }
+
+    .header-user-image {
+        height: 30px;
+    }
+
+   
+}
