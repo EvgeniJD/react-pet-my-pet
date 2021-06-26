@@ -130,6 +130,13 @@ function Post(props) {
                             {isCommentsVisible ? 'Hide comments' : post.comments.length > 0 ? 'See comments' : 'Write first comment'}
                         </Button>
                         <Button
+                            view={isCommentsVisible ? "round-top gray" : "round-top blue"}
+                            newClassName="post-footer-see-comments-small"
+                            onClick={toggleIsCommentsVisible}
+                        >
+                            {isCommentsVisible ? 'Hide' : 'Comments'}
+                        </Button>
+                        <Button
                             view="negative"
                             newClassName={isUserAlreadyDisliked() ? 'disabled post-footer-dislike' : 'post-footer-dislike'}
                             onClick={() => editPost(post._id, { dislikes: userData._id })}

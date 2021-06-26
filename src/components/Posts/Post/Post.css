@@ -52,9 +52,14 @@
 
 .post-footer-like,
 .post-footer-dislike,
-.post-footer-see-comments {
+.post-footer-see-comments,
+.post-footer-see-comments-small {
     position: absolute;
     bottom: 0;
+}
+
+.post-footer-see-comments-small {
+    display: none;
 }
 
 .post-footer-like {
@@ -76,5 +81,18 @@
 
     .post-header-date {
         font-size: 10px;
+        margin-top: -10px;
+    }
+
+    .post-header-content {
+        margin-top: 0;
+    }
+
+    .post-footer-see-comments-small {
+        display: block;
+    }
+
+    .post-footer-see-comments {
+        display: none;
     }
 }

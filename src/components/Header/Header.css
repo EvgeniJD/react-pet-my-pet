@@ -102,11 +102,16 @@
 .fa-plus {
     position: absolute;
     left: 50%;
-    bottom: -40px;
+    bottom: -44px;
     transform: translate(-50%, 0);
 }
 
+
 @media all and (max-width: 900px) {
+    .header {
+        margin-bottom: 25px;
+    }
+
     .fa-plus, .fa-sign-out-alt {
         display: block;
     }
