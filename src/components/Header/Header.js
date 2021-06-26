@@ -32,17 +32,9 @@ function Header({ onAddPostBtnClickHandler, onLogoutBtnClickHandler }) {
             {userData && <Link to="/" className="header-logo">AmicA</Link>}
             {!userData && <div className="header-logo">AmicA</div>}
 
-            {/* <ul className="header-ul">
-                {userData && <li className="header-ul-add-post">
-                    <Button type="button" view="round blue" onClick={onAddPostBtnClickHandler}>Add New Post</Button>
-                </li>}
-                {!userData && <li><Link to="/user/login">Login</Link></li>}
-                {!userData && <li><Link to="/user/register">Register</Link></li>}
-                <li><Link to="/about">About</Link></li>
-            </ul> */}
             {userData &&
                 <>
-                    <i class="fas fa-sign-out-alt btn gray"></i>
+                    <i class="fas fa-sign-out-alt btn gray" onClick={onLogoutBtnClickHandler}></i>
                     <i class="fas fa-plus btn blue" onClick={onAddPostBtnClickHandler}></i>
                     <Button
                         type="button"

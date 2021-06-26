@@ -64,6 +64,13 @@
 @media all and (max-width: 900px) {
     .reg-form-wrapper {
         width: unset;
-        padding: 50px 40px;
+        padding: 40px 20px;
+        margin: 20px;
+    }
+}
+
+@media all and (max-height: 250px) {
+    .reg-image-wrapper {
+        display: none;
     }
 }

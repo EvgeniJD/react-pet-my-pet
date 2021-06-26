@@ -11,9 +11,9 @@ html {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    height: 100vh;
     position: relative;
     margin: 0 8px;
+    height: 100vh;
 }
 
 a {
@@ -46,4 +46,13 @@ h1, h2, h3, h4, h5, h6, i, p, label {
 
 li {
     list-style: none;
+}
+
+@media all and (max-width: 900px) {
+    #root {
+        position: relative;
+    }
+    body {
+        height: unset;
+    }
 }
